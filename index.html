@@ -107,7 +107,30 @@
     /* ─── STEP INDICATORS ─── */
     .steps-bar {
       display: flex; align-items: center; justify-content: center;
-      gap: 0; margin-bottom: 48px; position: relative; z-index: 1;
+      gap: 0; margin-bottom: 24px; position: relative; z-index: 1;
+    }
+
+    /* ─── DEPARTMENT FILTER ─── */
+    .dept-filter {
+      display: flex; justify-content: center; gap: 8px;
+      flex-wrap: wrap; margin-bottom: 48px; position: relative; z-index: 1;
+    }
+    .dept-filter-btn {
+      font-family: inherit; font-size: .82rem; font-weight: 600;
+      padding: 9px 22px; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: transparent; color: var(--text-secondary);
+      cursor: pointer; transition: all .25s;
+    }
+    .dept-filter-btn:hover {
+      border-color: rgba(255,255,255,.25); color: var(--text-primary);
+      background: rgba(255,255,255,.04);
+    }
+    .dept-filter-btn.active {
+      border-color: var(--accent-teal);
+      background: rgba(0,210,160,.12);
+      color: var(--accent-teal);
+      font-weight: 700;
     }
     .step-indicator {
       display: flex; align-items: center; gap: 8px;
@@ -217,14 +240,19 @@
       list-style: none; margin: 0 0 20px 0; padding: 0;
     }
     .tier-features li {
-      padding: 8px 0; font-size: .88rem; color: var(--text-secondary);
-      display: flex; align-items: center; gap: 10px; line-height: 1.5;
+      padding: 10px 0; font-size: .88rem; color: var(--text-secondary);
+      display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+      border-bottom: 1px solid rgba(255,255,255,.03);
+    }
+    .tier-features li:last-child {
+      border-bottom: none;
     }
     .tier-feature-icon {
       width: 20px; height: 20px; flex-shrink: 0;
       border-radius: 6px; background: rgba(0,210,160,.1);
       color: var(--tier-accent);
       display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
     }
     .tier-feature-icon svg {
       width: 12px; height: 12px;
@@ -625,10 +653,12 @@
       .page-header { margin-bottom: 16px; }
       .page-header h1 { font-size: 1.5rem; margin-bottom: 8px; }
       .page-header p { font-size: .82rem; display: none; }
-      .steps-bar { margin-bottom: 16px; }
+      .steps-bar { margin-bottom: 12px; }
       .step-line { width: 20px; margin: 0 4px; }
       .step-indicator span:not(.step-dot) { display: none; }
       .step-dot { width: 26px; height: 26px; font-size: .7rem; }
+      .dept-filter { margin-bottom: 16px; gap: 4px; }
+      .dept-filter-btn { padding: 7px 14px; font-size: .74rem; }
       .tiers-grid { gap: 10px; max-width: 100%; }
       .tier-card { border-radius: 14px; }
       .tier-top { padding: 14px 16px 10px; }
@@ -770,6 +800,16 @@
         <span class="step-dot">3</span>
         <span>Your Plan</span>
       </div>
+    </div>
+
+    <!-- DEPARTMENT FILTER -->
+    <div class="dept-filter" id="deptFilter">
+      <button class="dept-filter-btn active" data-dept="all">All</button>
+      <button class="dept-filter-btn" data-dept="hr">HR</button>
+      <button class="dept-filter-btn" data-dept="it">IT</button>
+      <button class="dept-filter-btn" data-dept="pmo">PMO</button>
+      <button class="dept-filter-btn" data-dept="sales">Sales</button>
+      <button class="dept-filter-btn" data-dept="ops">Operations</button>
     </div>
 
     <!-- ═══ STEP 1: CHOOSE TIER (clean — name, tagline, agents on hover) ═══ -->
@@ -1035,8 +1075,34 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
+  // Default "All" features
+  const defaultFeatures = {
+    assist: [
+      { ico: 'agents', name: 'AI Agents: Up to 50K actions' },
+      { ico: 'workflows', name: 'AI Workflows: 10,000 runs' },
+      { ico: 'vibe', name: 'Vibe Apps included' },
+      { ico: 'notes', name: 'Note Taker: Recorded hours' },
+      { ico: 'sidekick', name: 'Sidekick Plus+' }
+    ],
+    cowork: [
+      { ico: 'agents', name: 'AI Agents: Up to 50K actions' },
+      { ico: 'workflows', name: 'AI Workflows: 100,000 runs' },
+      { ico: 'vibe', name: 'Vibe Apps included' },
+      { ico: 'notes', name: 'Note Taker: Recorded hours' },
+      { ico: 'sidekick', name: 'Sidekick Plus+' }
+    ],
+    first: [
+      { ico: 'agents', name: 'AI Agents: Unlimited actions' },
+      { ico: 'workflows', name: 'AI Workflows: Unlimited runs' },
+      { ico: 'vibe', name: 'Vibe Apps included' },
+      { ico: 'notes', name: 'Note Taker: Recorded hours' },
+      { ico: 'sidekick', name: 'Sidekick Plus+' }
+    ]
+  };
+
   let selectedTier = null;
   let userCount = 10;
+  let currentDept = 'all';
 
   const tierCards = document.querySelectorAll('.tier-card');
   const stepIndicators = document.querySelectorAll('.step-indicator');
@@ -1064,6 +1130,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateTierFeatures(dept) {
+    const tierFeatureContainers = {
+      assist: document.querySelector('.tier-assist .tier-features'),
+      cowork: document.querySelector('.tier-cowork .tier-features'),
+      first: document.querySelector('.tier-first .tier-features')
+    };
+
+    if (dept === 'all') {
+      // Show default features
+      Object.keys(tierFeatureContainers).forEach(tierKey => {
+        const features = defaultFeatures[tierKey];
+        tierFeatureContainers[tierKey].innerHTML = features.map(f => `
+          <li>
+            <span class="tier-feature-icon"><svg><use href="#ico-${f.ico}"/></svg></span>
+            ${f.name}
+          </li>
+        `).join('');
+      });
+    } else {
+      // Show department-specific features (only name and desc, first 4 items)
+      const deptInfo = deptData[dept];
+      if (deptInfo) {
+        Object.keys(tierFeatureContainers).forEach(tierKey => {
+          const caps = deptInfo.caps[tierKey] || [];
+          const limitedCaps = caps.slice(0, 4);
+          tierFeatureContainers[tierKey].innerHTML = limitedCaps.map(c => `
+            <li>
+              <span class="tier-feature-icon"><svg><use href="#ico-${c.ico}"/></svg></span>
+              <div>
+                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 2px;">${c.name}</div>
+                <div style="font-size: .8rem; line-height: 1.4;">${c.desc}</div>
+              </div>
+            </li>
+          `).join('');
+        });
+      }
+    }
   }
 
   let renderSummary = function() {
@@ -1108,6 +1213,16 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', selectTier);
   });
 
+  // ─── DEPARTMENT FILTER ───
+  document.querySelectorAll('.dept-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentDept = btn.dataset.dept;
+      document.querySelectorAll('.dept-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateTierFeatures(currentDept);
+    });
+  });
+
   document.getElementById('usersMinus').addEventListener('click', () => {
     const val = Math.max(1, parseInt(usersInput.value) - 1);
     usersInput.value = val;
@@ -1132,7 +1247,7 @@ document.addEventListener('DOMContentLoaded', () => {
     goToStep(3);
   });
 
-  // ─── DEPARTMENT EXPLORER ───
+  // ─── DEPARTMENT DATA (moved up for access in updateTierFeatures) ───
   const deptData = {
     hr: {
       label: 'Human Resources',
