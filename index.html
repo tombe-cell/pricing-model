@@ -210,7 +210,19 @@
 
     .tier-body {
       padding: 20px 28px 28px; flex: 1;
-      display: flex; flex-direction: column; justify-content: flex-end;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+
+    .tier-features {
+      list-style: none; margin: 0 0 20px 0; padding: 0;
+    }
+    .tier-features li {
+      padding: 8px 0; font-size: .88rem; color: var(--text-secondary);
+      display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+    }
+    .tier-features li::before {
+      content: '✓'; color: var(--tier-accent); font-weight: 700;
+      font-size: 1rem; flex-shrink: 0;
     }
 
     .tier-select-btn {
@@ -225,47 +237,6 @@
       background: var(--tier-accent); color: #0B0D1A;
     }
 
-    /* ─── AGENT HOVER PREVIEWS (no borders, clean images) ─── */
-    .tier-agents-preview {
-      position: relative;
-      display: flex; align-items: flex-end; justify-content: center;
-      padding: 12px 0 16px; opacity: 0;
-      transition: opacity .4s ease;
-      min-height: 90px;
-    }
-    .tier-card:hover .tier-agents-preview,
-    .tier-card.selected .tier-agents-preview { opacity: 1; }
-
-    .agent-bubble {
-      width: 64px; height: 80px;
-      overflow: hidden;
-      transition: transform .3s ease;
-      flex-shrink: 0;
-    }
-    .agent-bubble img {
-      width: 100%; height: 100%;
-      object-fit: contain; object-position: bottom center;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.4));
-    }
-    .agent-bubble:hover { transform: scale(1.1) translateY(-4px); }
-
-    .agents-single { justify-content: center; }
-    .agents-single .agent-bubble { width: 80px; height: 100px; }
-
-    .agents-triple { display: flex; gap: 6px; justify-content: center; }
-
-    .agents-departments {
-      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
-    }
-    .dept-group {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-    }
-    .dept-group-label {
-      font-size: .58rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .04em; color: var(--text-muted);
-    }
-    .dept-group-agents { display: flex; gap: 2px; }
-    .dept-group-agents .agent-bubble { width: 42px; height: 52px; }
 
     /* ─── STEP 2: USER COUNT ─── */
     .users-panel {
@@ -637,7 +608,6 @@
       .page { padding: 100px 0 60px; }
       .page-header h1 { font-size: 2.2rem; }
       .tiers-grid { grid-template-columns: 1fr; max-width: 440px; }
-      .agents-departments { gap: 12px; }
       .summary-panel { max-width: 100%; }
     }
     @media (max-width: 600px) {
@@ -662,12 +632,7 @@
       .tier-price-period { font-size: .7rem; }
       .tier-tagline { font-size: .76rem; line-height: 1.4; }
       .tier-body { padding: 10px 16px 14px; }
-      .tier-agents-preview { opacity: 1; min-height: auto; padding: 6px 0 8px; }
-      .agents-single .agent-bubble { width: 48px; height: 60px; }
-      .agent-bubble { width: 40px; height: 50px; }
-      .dept-group-agents .agent-bubble { width: 28px; height: 36px; }
-      .agents-departments { gap: 8px; }
-      .dept-group-label { font-size: .5rem; }
+      .tier-features li { font-size: .8rem; padding: 6px 0; }
       .tier-select-btn { padding: 10px; font-size: .85rem; border-width: 1.5px; border-radius: 10px; }
       .users-panel h2 { font-size: 1.4rem; }
       .users-panel p { font-size: .9rem; margin-bottom: 24px; }
@@ -812,11 +777,13 @@
             <p class="tier-tagline">AI helps with small tasks — categorization, summarization, content creation on demand, and quick lookups.</p>
           </div>
           <div class="tier-body">
-            <div class="tier-agents-preview agents-single">
-              <div class="agent-bubble">
-                <img src="assets/team-hr-1.png" alt="AI Agent">
-              </div>
-            </div>
+            <ul class="tier-features">
+              <li>AI Agents: Up to 50K actions</li>
+              <li>AI Workflows: 10,000 runs</li>
+              <li>Vibe Apps included</li>
+              <li>Note Taker: Recorded hours</li>
+              <li>Sidekick Plus+</li>
+            </ul>
             <button class="tier-select-btn">Select AI Assist</button>
           </div>
         </div>
@@ -829,17 +796,13 @@
             <p class="tier-tagline">AI owns deterministic tasks — solving specific tickets, handling routine workflows, and executing repeatable processes end-to-end.</p>
           </div>
           <div class="tier-body">
-            <div class="tier-agents-preview agents-triple">
-              <div class="agent-bubble">
-                <img src="assets/team-hr-1.png" alt="HR Agent">
-              </div>
-              <div class="agent-bubble">
-                <img src="assets/team-it-1.png" alt="IT Agent">
-              </div>
-              <div class="agent-bubble">
-                <img src="assets/team-pmo-1.png" alt="PMO Agent">
-              </div>
-            </div>
+            <ul class="tier-features">
+              <li>AI Agents: Up to 50K actions</li>
+              <li>AI Workflows: 100,000 runs</li>
+              <li>Vibe Apps included</li>
+              <li>Note Taker: Recorded hours</li>
+              <li>Sidekick Plus+</li>
+            </ul>
             <button class="tier-select-btn">Select AI Co-Work</button>
           </div>
         </div>
@@ -852,32 +815,13 @@
             <p class="tier-tagline">Delegate every workflow to a dedicated AI Agent workforce that can transform entire department operations and processes.</p>
           </div>
           <div class="tier-body">
-            <div class="tier-agents-preview agents-departments">
-              <div class="dept-group">
-                <span class="dept-group-label">HR</span>
-                <div class="dept-group-agents">
-                  <div class="agent-bubble"><img src="assets/team-hr-1.png" alt="HR Agent 1"></div>
-                  <div class="agent-bubble"><img src="assets/team-hr-2.png" alt="HR Agent 2"></div>
-                  <div class="agent-bubble"><img src="assets/team-hr-3.png" alt="HR Agent 3"></div>
-                </div>
-              </div>
-              <div class="dept-group">
-                <span class="dept-group-label">IT</span>
-                <div class="dept-group-agents">
-                  <div class="agent-bubble"><img src="assets/team-it-1.png" alt="IT Agent 1"></div>
-                  <div class="agent-bubble"><img src="assets/team-it-2.png" alt="IT Agent 2"></div>
-                  <div class="agent-bubble"><img src="assets/team-it-3.png" alt="IT Agent 3"></div>
-                </div>
-              </div>
-              <div class="dept-group">
-                <span class="dept-group-label">PMO</span>
-                <div class="dept-group-agents">
-                  <div class="agent-bubble"><img src="assets/team-pmo-1.png" alt="PMO Agent 1"></div>
-                  <div class="agent-bubble"><img src="assets/team-pmo-2.png" alt="PMO Agent 2"></div>
-                  <div class="agent-bubble"><img src="assets/team-pmo-3.png" alt="PMO Agent 3"></div>
-                </div>
-              </div>
-            </div>
+            <ul class="tier-features">
+              <li>AI Agents: Unlimited actions</li>
+              <li>AI Workflows: Unlimited runs</li>
+              <li>Vibe Apps included</li>
+              <li>Note Taker: Recorded hours</li>
+              <li>Sidekick Plus+</li>
+            </ul>
             <button class="tier-select-btn">Select AI First</button>
           </div>
         </div>
