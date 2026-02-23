@@ -258,6 +258,17 @@
       width: 12px; height: 12px;
     }
 
+    .tier-credits {
+      font-size: .85rem; font-weight: 700; color: var(--tier-accent);
+      margin-bottom: 12px;
+    }
+    .tier-popular-badge {
+      position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
+      background: var(--gradient-main); color: #0B0D1A;
+      font-size: .72rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .06em; padding: 6px 20px; border-radius: 100px;
+      white-space: nowrap; z-index: 5;
+    }
     .tier-select-btn {
       width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--tier-accent);
       background: transparent; color: var(--tier-accent); font-family: inherit;
@@ -265,6 +276,12 @@
     }
     .tier-select-btn:hover {
       background: color-mix(in srgb, var(--tier-accent) 12%, transparent);
+    }
+    .tier-select-btn.filled {
+      background: var(--gradient-main); border-color: transparent; color: #0B0D1A;
+    }
+    .tier-select-btn.filled:hover {
+      box-shadow: 0 0 32px rgba(0,210,160,.35); transform: translateY(-2px);
     }
     .tier-card.selected .tier-select-btn {
       background: var(--tier-accent); color: #0B0D1A;
@@ -543,7 +560,7 @@
     .dept-tag.active[data-dept="it"]    { background: linear-gradient(135deg, #FDAB3D 0%, #D48B2A 60%, #9B6BF2 100%); color: #fff; box-shadow: 0 0 20px rgba(253,171,61,.25); }
     .dept-tag.active[data-dept="pmo"]   { background: linear-gradient(135deg, #FFD600 0%, #D4A800 60%, #5B8DEF 100%); color: #fff; box-shadow: 0 0 20px rgba(255,214,0,.25); }
     .dept-tag.active[data-dept="sales"] { background: linear-gradient(135deg, #64B5F6 0%, #0077CC 60%, #9B6BF2 100%); color: #fff; box-shadow: 0 0 20px rgba(100,181,246,.25); }
-    .dept-tag.active[data-dept="ops"]   { background: linear-gradient(135deg, #FF8A9E 0%, #D4506A 60%, #9B6BF2 100%); color: #fff; box-shadow: 0 0 20px rgba(255,138,158,.25); }
+    .dept-tag.active[data-dept="marketing"] { background: linear-gradient(135deg, #FF9A3D 0%, #E07B20 60%, #9B6BF2 100%); color: #fff; box-shadow: 0 0 20px rgba(255,154,61,.25); }
 
     .dept-panel {
       display: none;
@@ -806,10 +823,10 @@
     <div class="dept-filter" id="deptFilter">
       <button class="dept-filter-btn active" data-dept="all">All</button>
       <button class="dept-filter-btn" data-dept="hr">HR</button>
-      <button class="dept-filter-btn" data-dept="it">IT</button>
+      <button class="dept-filter-btn" data-dept="marketing">Marketing</button>
       <button class="dept-filter-btn" data-dept="pmo">PMO</button>
       <button class="dept-filter-btn" data-dept="sales">Sales</button>
-      <button class="dept-filter-btn" data-dept="ops">Operations</button>
+      <button class="dept-filter-btn" data-dept="it">IT</button>
     </div>
 
     <!-- ═══ STEP 1: CHOOSE TIER (clean — name, tagline, agents on hover) ═══ -->
@@ -820,8 +837,9 @@
         <div class="tier-card tier-assist" data-tier="assist">
           <div class="tier-top">
             <h3 class="tier-name">AI Assist</h3>
-            <div class="tier-price">$100 <span class="tier-price-period">/month</span></div>
-            <p class="tier-tagline">AI helps with small tasks — categorization, summarization, content creation on demand, and quick lookups.</p>
+            <div class="tier-price">$100 <span class="tier-price-period">/mo</span></div>
+            <p class="tier-credits">10,000 AI Credits / month</p>
+            <p class="tier-tagline">For light AI usage and experimentation</p>
           </div>
           <div class="tier-body">
             <ul class="tier-features">
@@ -846,16 +864,18 @@
                 Sidekick Plus+
               </li>
             </ul>
-            <button class="tier-select-btn">Select AI Assist</button>
+            <button class="tier-select-btn">Get started</button>
           </div>
         </div>
 
         <!-- AI Co-Work -->
-        <div class="tier-card tier-cowork" data-tier="cowork">
+        <div class="tier-card tier-cowork" data-tier="cowork" style="margin-top: 16px;">
+          <div class="tier-popular-badge">Most Popular</div>
           <div class="tier-top">
             <h3 class="tier-name">AI Co-Work</h3>
-            <div class="tier-price">$500 <span class="tier-price-period">/month</span></div>
-            <p class="tier-tagline">AI owns deterministic tasks — solving specific tickets, handling routine workflows, and executing repeatable processes end-to-end.</p>
+            <div class="tier-price">$500 <span class="tier-price-period">/mo</span></div>
+            <p class="tier-credits">50,000 AI Credits / month</p>
+            <p class="tier-tagline">For teams automating core workflows</p>
           </div>
           <div class="tier-body">
             <ul class="tier-features">
@@ -880,7 +900,7 @@
                 Sidekick Plus+
               </li>
             </ul>
-            <button class="tier-select-btn">Select AI Co-Work</button>
+            <button class="tier-select-btn filled">Get started</button>
           </div>
         </div>
 
@@ -888,8 +908,9 @@
         <div class="tier-card tier-first" data-tier="first">
           <div class="tier-top">
             <h3 class="tier-name">AI First</h3>
-            <div class="tier-price">$1,000 <span class="tier-price-period">/month</span></div>
-            <p class="tier-tagline">Delegate every workflow to a dedicated AI Agent workforce that can transform entire department operations and processes.</p>
+            <div class="tier-price">$1,000 <span class="tier-price-period">/mo</span></div>
+            <p class="tier-credits">100,000 AI Credits / month</p>
+            <p class="tier-tagline">For organization-wide AI standardization</p>
           </div>
           <div class="tier-body">
             <ul class="tier-features">
@@ -914,7 +935,7 @@
                 Sidekick Plus+
               </li>
             </ul>
-            <button class="tier-select-btn">Select AI First</button>
+            <button class="tier-select-btn">Contact sales</button>
           </div>
         </div>
 
@@ -1012,10 +1033,10 @@
           </div>
           <div class="dept-tags" id="deptTags">
             <button class="dept-tag active" data-dept="hr">HR</button>
-            <button class="dept-tag" data-dept="it">IT</button>
+            <button class="dept-tag" data-dept="marketing">Marketing</button>
             <button class="dept-tag" data-dept="pmo">PMO</button>
             <button class="dept-tag" data-dept="sales">Sales</button>
-            <button class="dept-tag" data-dept="ops">Operations</button>
+            <button class="dept-tag" data-dept="it">IT</button>
           </div>
           <div id="deptPanelContainer"></div>
         </div>
@@ -1151,7 +1172,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
       });
     } else {
-      // Show department-specific features (name and stat, first 4 items)
       const deptInfo = deptData[dept];
       if (deptInfo) {
         Object.keys(tierFeatureContainers).forEach(tierKey => {
@@ -1159,11 +1179,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const limitedCaps = caps.slice(0, 4);
           tierFeatureContainers[tierKey].innerHTML = limitedCaps.map(c => `
             <li>
-              <span class="tier-feature-icon"><svg><use href="#ico-${c.ico}"/></svg></span>
-              <div style="flex: 1;">
-                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${c.name}</div>
-                <div style="font-size: .75rem; font-weight: 700; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">${c.stat(userCount)}</div>
-              </div>
+              <span style="color: var(--accent-teal); font-size: .85rem; flex-shrink: 0;">&#10003;</span>
+              <span><strong style="color: var(--text-primary);">${c.stat(userCount)}</strong> ${c.name}</span>
             </li>
           `).join('');
         });
@@ -1254,70 +1271,94 @@ document.addEventListener('DOMContentLoaded', () => {
       img: 'assets/team-hr-1.png',
       caps: {
         assist: [
-          { name: 'Resume Screening', ico: 'agents', color: 'green', desc: 'AI scans and scores incoming resumes against role criteria, surfacing top candidates.', stat: (u) => Math.round(u * 8) + ' resumes screened /mo' },
-          { name: 'Employee FAQ Bot', ico: 'sidekick', color: 'green', desc: 'Sidekick answers common HR policy questions — PTO, benefits, payroll — instantly.', stat: () => 'Instant answers, 24/7' },
-          { name: 'Offer Letter Drafts', ico: 'workflows', color: 'green', desc: 'Generate templated offer letters pre-filled with candidate data for quick review.', stat: (u) => Math.round(u * 0.5) + ' letters drafted /mo' },
-          { name: 'Meeting Summaries', ico: 'notes', color: 'green', desc: 'Note Taker records and summarizes HR meetings, interviews, and 1-on-1s.', stat: (u) => Math.round(u * 2) + ' hours of meetings captured /mo' },
+          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'AI screens and ranks incoming resumes against your role criteria.', stat: () => '~80 /mo' },
+          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Automated personalized follow-up emails to candidates after each hiring stage.', stat: () => '~800 /mo' },
+          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Create customized onboarding plans for new hires based on role and department.', stat: () => '~53 /mo' },
+          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'Streamline benefits enrollment with automated workflows and reminders.', stat: () => '~160 /mo' },
         ],
         cowork: [
-          { name: 'Full Recruitment Pipeline', ico: 'agents', color: 'green', desc: 'AI handles end-to-end hiring: screening, scoring, scheduling interviews, and sending follow-ups autonomously.', stat: (u) => Math.round(u * 20) + ' candidates processed /mo' },
-          { name: 'Onboarding Automation', ico: 'workflows', color: 'green', desc: 'Automatically generate onboarding checklists, assign tasks to managers, and send Day-1 packages.', stat: (u) => Math.round(u * 0.3) + ' new hires onboarded /mo' },
-          { name: 'Benefits Enrollment', ico: 'vibe', color: 'green', desc: 'Vibe Apps power a self-service portal for benefits selection, changes, and open enrollment.', stat: () => 'Self-service for all employees' },
-          { name: 'HR Analytics Dashboard', ico: 'credits', color: 'green', desc: 'Deep analytics on attrition risk, headcount planning, and engagement trends across teams.', stat: () => 'Real-time workforce insights' },
+          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'AI screens and ranks incoming resumes at scale for multi-team hiring.', stat: () => '~800 /mo' },
+          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Automated personalized follow-up emails across your full candidate pipeline.', stat: () => '~8,000 /mo' },
+          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Scalable onboarding plan generation for growing teams and departments.', stat: () => '~533 /mo' },
+          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'End-to-end benefits enrollment automation including open enrollment periods.', stat: () => '~1,600 /mo' },
         ],
         first: [
-          { name: 'AI Talent Acquisition Team', ico: 'agents', color: 'green', desc: 'A dedicated AI workforce handles sourcing, screening, scheduling, offer letters, and follow-ups across all departments.', stat: (u) => Math.round(u * 40) + '+ candidates processed /mo' },
-          { name: 'Autonomous Onboarding', ico: 'workflows', color: 'green', desc: 'Zero-touch onboarding: IT provisioning, compliance docs, training schedules, and buddy assignment — all automated.', stat: (u) => Math.round(u * 0.8) + ' new hires /mo, fully automated' },
-          { name: 'Predictive Retention', ico: 'credits', color: 'green', desc: 'AI models identify flight risks, recommend interventions, and auto-trigger retention workflows before attrition occurs.', stat: () => 'Attrition reduced by up to 40%' },
-          { name: 'Workforce Intelligence Hub', ico: 'vibe', color: 'green', desc: 'Company-wide Vibe App for real-time headcount, compensation benchmarks, DEI metrics, and succession planning.', stat: () => 'Enterprise-grade HR command center' },
+          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'Enterprise-scale AI screening and ranking across all departments and roles.', stat: () => '~4,000 /mo' },
+          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Organization-wide automated candidate communication and nurturing.', stat: () => '~40,000 /mo' },
+          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Comprehensive onboarding automation for every new hire across the organization.', stat: () => '~2,666 /mo' },
+          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'Full benefits lifecycle automation including open enrollment and life events.', stat: () => '~8,000 /mo' },
+        ],
+      }
+    },
+    marketing: {
+      label: 'Marketing',
+      img: 'assets/team-marketing-1.png',
+      caps: {
+        assist: [
+          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'AI launches and manages campaigns across multiple channels.', stat: () => '~80' },
+          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'Automated A/B testing of email subject lines for optimal open rates.', stat: () => '~800' },
+          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'AI drafts blog posts and social media content from briefs.', stat: () => '~160' },
+          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Score and segment marketing qualified leads automatically.', stat: () => '~53' },
+        ],
+        cowork: [
+          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'AI launches and manages campaigns at scale across all channels.', stat: () => '~800' },
+          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'High-volume A/B testing across all email campaigns.', stat: () => '~8,000' },
+          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'Scalable content creation for blogs, social, and marketing collateral.', stat: () => '~1,600' },
+          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Advanced lead scoring and segmentation for multi-team adoption.', stat: () => '~533' },
+        ],
+        first: [
+          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'Enterprise-wide multi-channel campaign orchestration.', stat: () => '~4,000' },
+          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'Organization-wide automated testing across all communications.', stat: () => '~40,000' },
+          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'Full content pipeline automation across all departments.', stat: () => '~8,000' },
+          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Enterprise lead intelligence with cross-department scoring.', stat: () => '~2,666' },
         ],
       }
     },
     it: {
-      label: 'IT Operations',
+      label: 'IT',
       img: 'assets/team-it-1.png',
       caps: {
         assist: [
-          { name: 'Ticket Categorization', ico: 'agents', color: 'orange', desc: 'AI classifies and tags incoming IT tickets by type, urgency, and affected system.', stat: (u) => Math.round(u * 6) + ' tickets categorized /mo' },
-          { name: 'Quick Troubleshooting', ico: 'sidekick', color: 'orange', desc: 'Sidekick guides users through common fixes — password resets, VPN issues, printer problems.', stat: () => 'L1 issues resolved in minutes' },
-          { name: 'License Audits', ico: 'workflows', color: 'orange', desc: 'Automated workflows check software license usage and flag underutilized seats.', stat: (u) => Math.round(u * 3) + ' licenses audited /mo' },
-          { name: 'Standup Summaries', ico: 'notes', color: 'orange', desc: 'Note Taker captures IT standup meetings and posts key action items to the board.', stat: () => 'Never miss an action item' },
+          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'AI classifies and routes incoming IT support tickets.', stat: () => '~160' },
+          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Automated account provisioning and access management.', stat: () => '~800' },
+          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'AI monitors systems and triggers runbooks on outage detection.', stat: () => '~80' },
+          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Automated software license usage auditing and reporting.', stat: () => '~53' },
         ],
         cowork: [
-          { name: 'Autonomous Ticket Triage', ico: 'agents', color: 'orange', desc: 'AI classifies, routes, acknowledges, and auto-resolves L1 tickets end-to-end.', stat: (u) => Math.round(u * 15) + ' tickets resolved /mo' },
-          { name: 'Incident Response', ico: 'workflows', color: 'orange', desc: 'Detect outages, trigger runbooks, and notify on-call teams automatically.', stat: () => 'Faster incident resolution' },
-          { name: 'Access Provisioning', ico: 'vibe', color: 'orange', desc: 'Vibe App for self-service access requests with automated approval workflows and audit trails.', stat: (u) => Math.round(u * 2) + ' access requests processed /mo' },
-          { name: 'AI Governance', ico: 'credits', color: 'orange', desc: 'Track AI credit usage across departments, flag anomalies, and generate monthly compliance reports.', stat: () => 'Full AI spend visibility' },
+          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'End-to-end ticket triage and resolution for multi-team IT.', stat: () => '~1,600' },
+          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Scalable provisioning across all departments and systems.', stat: () => '~8,000' },
+          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'Proactive outage detection with automated incident response.', stat: () => '~800' },
+          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Comprehensive license auditing across all software vendors.', stat: () => '~533' },
         ],
         first: [
-          { name: 'AI IT Service Desk', ico: 'agents', color: 'orange', desc: 'Dedicated AI agents handle the full support lifecycle: triage, diagnose, resolve, and close — with human escalation only for edge cases.', stat: (u) => Math.round(u * 30) + '+ tickets handled /mo' },
-          { name: 'Predictive Infrastructure', ico: 'workflows', color: 'orange', desc: 'AI monitors systems, predicts failures, auto-scales resources, and triggers remediation before downtime.', stat: () => '99.9%+ uptime target' },
-          { name: 'Zero-Trust Access Engine', ico: 'vibe', color: 'orange', desc: 'Enterprise Vibe App for real-time access governance, continuous auth verification, and risk-based policies.', stat: () => 'Enterprise-grade identity management' },
-          { name: 'IT Cost Optimization', ico: 'credits', color: 'orange', desc: 'AI continuously analyzes license, cloud, and vendor spend — recommending cuts and renegotiations.', stat: (u) => 'Up to ' + Math.round(u * 50) + ' $/mo in savings identified' },
+          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'Enterprise AI service desk handling the full support lifecycle.', stat: () => '~8,000' },
+          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Organization-wide zero-touch provisioning and access governance.', stat: () => '~40,000' },
+          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'Predictive infrastructure monitoring with automated remediation.', stat: () => '~4,000' },
+          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Continuous license optimization and vendor cost analysis.', stat: () => '~2,666' },
         ],
       }
     },
     pmo: {
-      label: 'Project Management',
+      label: 'PMO',
       img: 'assets/team-pmo-1.png',
       caps: {
         assist: [
-          { name: 'Status Summaries', ico: 'agents', color: 'yellow', desc: 'AI generates concise weekly status reports pulling data from project boards.', stat: () => 'Weekly reports in seconds' },
-          { name: 'Meeting Notes', ico: 'notes', color: 'yellow', desc: 'Note Taker captures sprint reviews, retros, and planning sessions with full transcripts.', stat: (u) => Math.round(u * 1.5) + ' hours of meetings captured /mo' },
-          { name: 'Task Prioritization', ico: 'workflows', color: 'yellow', desc: 'AI suggests priority rankings for backlog items based on dependencies and deadlines.', stat: (u) => Math.round(u * 5) + ' items prioritized /mo' },
-          { name: 'Quick PM Answers', ico: 'sidekick', color: 'yellow', desc: 'Sidekick answers project health questions: "What\'s blocking Sprint 14?" or "Who\'s overloaded?"', stat: () => 'Instant project insights' },
+          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'AI generates sprint plans based on backlog and capacity.', stat: () => '~160' },
+          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'Automated deadline reminders to keep projects on track.', stat: () => '~800' },
+          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'AI summarizes weekly project progress across teams.', stat: () => '~160' },
+          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Generate resource allocation plans based on project needs.', stat: () => '~53' },
         ],
         cowork: [
-          { name: 'Sprint Planning Engine', ico: 'agents', color: 'yellow', desc: 'AI analyzes backlog, team capacity, and past velocity to draft optimized sprint plans automatically.', stat: (u) => Math.round(u / 5) + ' team sprints planned /mo' },
-          { name: 'Risk Detection', ico: 'workflows', color: 'yellow', desc: 'Automated workflows scan for blockers, scope creep, and deadline risks — escalating before they hit.', stat: () => 'Proactive risk mitigation' },
-          { name: 'Resource Allocation', ico: 'credits', color: 'yellow', desc: 'AI balances workload across teams, suggesting reassignments when capacity issues arise.', stat: (u) => Math.round(u) + ' team members balanced' },
-          { name: 'Portfolio Dashboard', ico: 'vibe', color: 'yellow', desc: 'Vibe App for executive portfolio views — budget burn, milestone progress, and cross-project dependencies.', stat: () => 'Single pane of glass' },
+          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'Scalable sprint planning across multiple teams and projects.', stat: () => '~1,600' },
+          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'High-volume automated reminders across all project portfolios.', stat: () => '~8,000' },
+          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'Multi-team progress summaries with cross-project insights.', stat: () => '~1,600' },
+          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Advanced resource planning with capacity optimization.', stat: () => '~533' },
         ],
         first: [
-          { name: 'Autonomous PMO', ico: 'agents', color: 'yellow', desc: 'AI agents own planning, tracking, reporting, and risk management across every project and portfolio.', stat: (u) => Math.round(u / 3) + '+ projects managed autonomously' },
-          { name: 'Predictive Delivery', ico: 'workflows', color: 'yellow', desc: 'ML-powered delivery forecasting adjusts plans dynamically based on real-time progress and historical patterns.', stat: () => '35%+ improvement in on-time delivery' },
-          { name: 'Strategic Resource AI', ico: 'credits', color: 'yellow', desc: 'Company-wide capacity planning with AI-driven hiring recommendations and contractor allocation.', stat: (u) => 'Optimizing ' + u + ' resources across all projects' },
-          { name: 'Enterprise PMO Hub', ico: 'vibe', color: 'yellow', desc: 'Full Vibe App suite for multi-BU portfolio management, OKR alignment, and board-level reporting.', stat: () => 'Enterprise portfolio intelligence' },
+          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'Enterprise autonomous sprint planning across all departments.', stat: () => '~8,000' },
+          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'Organization-wide automated project communication.', stat: () => '~40,000' },
+          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'Full portfolio progress intelligence and executive reporting.', stat: () => '~8,000' },
+          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Enterprise resource optimization with AI-driven staffing.', stat: () => '~2,666' },
         ],
       }
     },
@@ -1326,46 +1367,22 @@ document.addEventListener('DOMContentLoaded', () => {
       img: 'assets/agent-sales.png',
       caps: {
         assist: [
-          { name: 'Lead Enrichment', ico: 'agents', color: 'blue', desc: 'AI enriches inbound leads with firmographic data and scores them against your ICP.', stat: (u) => Math.round(u * 10) + ' leads enriched /mo' },
-          { name: 'Call Prep Briefs', ico: 'sidekick', color: 'blue', desc: 'Sidekick compiles account history, recent activity, and talking points before every scheduled call.', stat: (u) => Math.round(u * 8) + ' call briefs /mo' },
-          { name: 'Email Drafting', ico: 'workflows', color: 'blue', desc: 'AI drafts personalized outreach emails using CRM data and recent interactions.', stat: (u) => Math.round(u * 12) + ' emails drafted /mo' },
-          { name: 'Call Transcripts', ico: 'notes', color: 'blue', desc: 'Note Taker records sales calls and generates highlights, objections, and next-step summaries.', stat: (u) => Math.round(u * 4) + ' hours of calls transcribed /mo' },
+          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'AI qualifies and scores inbound leads against your ICP.', stat: () => '~80' },
+          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'Automated personalized follow-up emails using CRM data.', stat: () => '~800' },
+          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'AI compiles account history and talking points before calls.', stat: () => '~160' },
+          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Automatically identify and merge duplicate CRM records.', stat: () => '~53' },
         ],
         cowork: [
-          { name: 'Full Lead Qualification', ico: 'agents', color: 'blue', desc: 'AI qualifies, scores, and routes leads to the right AE — handling the entire SDR workflow autonomously.', stat: (u) => Math.round(u * 25) + ' leads qualified /mo' },
-          { name: 'Pipeline Automation', ico: 'workflows', color: 'blue', desc: 'Automated follow-ups, deal stage updates, and stale-deal re-engagement triggered by AI workflows.', stat: () => 'Zero deals fall through cracks' },
-          { name: 'Sales Intelligence App', ico: 'vibe', color: 'blue', desc: 'Vibe App with real-time pipeline analytics, win-rate tracking, and competitive intelligence feeds.', stat: () => 'Data-driven selling' },
-          { name: 'Forecasting', ico: 'credits', color: 'blue', desc: 'AI-powered revenue forecasting using deal signals, activity data, and historical close rates.', stat: () => 'Accurate quarterly forecasts' },
+          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'Full-funnel lead qualification and routing at scale.', stat: () => '~800' },
+          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'High-volume automated follow-ups across the full pipeline.', stat: () => '~8,000' },
+          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'Comprehensive call prep with competitive intelligence.', stat: () => '~1,600' },
+          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Advanced CRM hygiene across all sales data sources.', stat: () => '~533' },
         ],
         first: [
-          { name: 'AI Sales Workforce', ico: 'agents', color: 'blue', desc: 'Dedicated AI agents handle prospecting, qualification, nurturing, call prep, and post-call follow-ups across the entire funnel.', stat: (u) => Math.round(u * 50) + '+ leads processed /mo' },
-          { name: 'Revenue Operations Engine', ico: 'workflows', color: 'blue', desc: 'End-to-end revenue automation: territory planning, quota allocation, compensation modeling, and churn prediction.', stat: () => '22%+ win rate improvement' },
-          { name: 'Deal Intelligence Hub', ico: 'vibe', color: 'blue', desc: 'Enterprise Vibe App with deal risk scoring, multi-threading maps, champion tracking, and competitive battle cards.', stat: () => 'Enterprise sales intelligence' },
-          { name: 'Revenue Forecasting AI', ico: 'credits', color: 'blue', desc: 'ML models predict quarterly revenue with deal-level granularity, adjusting in real-time as pipeline shifts.', stat: (u) => 'Forecasting across ' + u + '-person sales org' },
-        ],
-      }
-    },
-    ops: {
-      label: 'Operations',
-      img: 'assets/agent-ops.png',
-      caps: {
-        assist: [
-          { name: 'Vendor Summaries', ico: 'agents', color: 'pink', desc: 'AI summarizes vendor proposals and highlights key terms, pricing, and risk clauses.', stat: (u) => Math.round(u * 0.8) + ' proposals summarized /mo' },
-          { name: 'Process Q&A', ico: 'sidekick', color: 'pink', desc: 'Sidekick answers operational questions — procurement steps, approval chains, and SLA terms.', stat: () => 'Instant process guidance' },
-          { name: 'Report Generation', ico: 'workflows', color: 'pink', desc: 'AI workflows generate weekly operational reports from multiple data sources.', stat: () => 'Automated weekly reports' },
-          { name: 'Meeting Capture', ico: 'notes', color: 'pink', desc: 'Note Taker records ops reviews and vendor calls, extracting action items and decisions.', stat: (u) => Math.round(u * 1) + ' hours of meetings captured /mo' },
-        ],
-        cowork: [
-          { name: 'Vendor Evaluation', ico: 'agents', color: 'pink', desc: 'AI compares vendor proposals against criteria, flags risks, and generates side-by-side comparison reports.', stat: (u) => Math.round(u * 2) + ' evaluations completed /mo' },
-          { name: 'SLA Monitoring', ico: 'workflows', color: 'pink', desc: 'Automated daily checks across all vendor contracts with proactive breach alerts and escalation.', stat: () => '95% fewer SLA breaches' },
-          { name: 'Procurement Portal', ico: 'vibe', color: 'pink', desc: 'Vibe App for streamlined purchase requests, multi-level approvals, and budget tracking.', stat: () => 'Self-service procurement' },
-          { name: 'Spend Analytics', ico: 'credits', color: 'pink', desc: 'AI analyzes operational spend patterns, identifies savings opportunities, and recommends vendor consolidation.', stat: (u) => 'Tracking spend across ' + u + ' users' },
-        ],
-        first: [
-          { name: 'Autonomous Procurement', ico: 'agents', color: 'pink', desc: 'AI agents manage the full procurement lifecycle: vendor sourcing, RFP generation, evaluation, negotiation support, and contract management.', stat: (u) => Math.round(u * 4) + '+ procurement actions /mo' },
-          { name: 'Predictive Operations', ico: 'workflows', color: 'pink', desc: 'AI anticipates supply chain risks, vendor performance issues, and capacity bottlenecks before they impact the business.', stat: () => 'Predictive risk management' },
-          { name: 'Enterprise Ops Hub', ico: 'vibe', color: 'pink', desc: 'Full Vibe App suite for company-wide operational visibility: facilities, logistics, compliance, and vendor management.', stat: () => 'Single operational command center' },
-          { name: 'Cost Optimization AI', ico: 'credits', color: 'pink', desc: 'Continuous analysis of all operational costs with automated renegotiation triggers and budget reallocation recommendations.', stat: (u) => 'Up to ' + Math.round(u * 80) + ' $/mo in savings identified' },
+          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'Enterprise AI sales workforce across the entire funnel.', stat: () => '~4,000' },
+          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'Organization-wide automated sales communication.', stat: () => '~40,000' },
+          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'Enterprise deal intelligence with competitive battle cards.', stat: () => '~8,000' },
+          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Continuous CRM optimization and data quality management.', stat: () => '~2,666' },
         ],
       }
     },
