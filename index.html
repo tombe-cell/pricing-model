@@ -1151,7 +1151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
       });
     } else {
-      // Show department-specific features (only name and desc, first 4 items)
+      // Show department-specific features (name and stat, first 4 items)
       const deptInfo = deptData[dept];
       if (deptInfo) {
         Object.keys(tierFeatureContainers).forEach(tierKey => {
@@ -1160,9 +1160,9 @@ document.addEventListener('DOMContentLoaded', () => {
           tierFeatureContainers[tierKey].innerHTML = limitedCaps.map(c => `
             <li>
               <span class="tier-feature-icon"><svg><use href="#ico-${c.ico}"/></svg></span>
-              <div>
-                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 2px;">${c.name}</div>
-                <div style="font-size: .8rem; line-height: 1.4;">${c.desc}</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${c.name}</div>
+                <div style="font-size: .75rem; font-weight: 700; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">${c.stat(userCount)}</div>
               </div>
             </li>
           `).join('');
