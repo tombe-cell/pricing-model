@@ -218,11 +218,16 @@
     }
     .tier-features li {
       padding: 8px 0; font-size: .88rem; color: var(--text-secondary);
-      display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+      display: flex; align-items: center; gap: 10px; line-height: 1.5;
     }
-    .tier-features li::before {
-      content: '✓'; color: var(--tier-accent); font-weight: 700;
-      font-size: 1rem; flex-shrink: 0;
+    .tier-feature-icon {
+      width: 20px; height: 20px; flex-shrink: 0;
+      border-radius: 6px; background: rgba(0,210,160,.1);
+      color: var(--tier-accent);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tier-feature-icon svg {
+      width: 12px; height: 12px;
     }
 
     .tier-select-btn {
@@ -633,6 +638,8 @@
       .tier-tagline { font-size: .76rem; line-height: 1.4; }
       .tier-body { padding: 10px 16px 14px; }
       .tier-features li { font-size: .8rem; padding: 6px 0; }
+      .tier-feature-icon { width: 18px; height: 18px; }
+      .tier-feature-icon svg { width: 11px; height: 11px; }
       .tier-select-btn { padding: 10px; font-size: .85rem; border-width: 1.5px; border-radius: 10px; }
       .users-panel h2 { font-size: 1.4rem; }
       .users-panel p { font-size: .9rem; margin-bottom: 24px; }
@@ -778,11 +785,26 @@
           </div>
           <div class="tier-body">
             <ul class="tier-features">
-              <li>AI Agents: Up to 50K actions</li>
-              <li>AI Workflows: 10,000 runs</li>
-              <li>Vibe Apps included</li>
-              <li>Note Taker: Recorded hours</li>
-              <li>Sidekick Plus+</li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-agents"/></svg></span>
+                AI Agents: Up to 50K actions
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-workflows"/></svg></span>
+                AI Workflows: 10,000 runs
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-vibe"/></svg></span>
+                Vibe Apps included
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-notes"/></svg></span>
+                Note Taker: Recorded hours
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-sidekick"/></svg></span>
+                Sidekick Plus+
+              </li>
             </ul>
             <button class="tier-select-btn">Select AI Assist</button>
           </div>
@@ -797,11 +819,26 @@
           </div>
           <div class="tier-body">
             <ul class="tier-features">
-              <li>AI Agents: Up to 50K actions</li>
-              <li>AI Workflows: 100,000 runs</li>
-              <li>Vibe Apps included</li>
-              <li>Note Taker: Recorded hours</li>
-              <li>Sidekick Plus+</li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-agents"/></svg></span>
+                AI Agents: Up to 50K actions
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-workflows"/></svg></span>
+                AI Workflows: 100,000 runs
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-vibe"/></svg></span>
+                Vibe Apps included
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-notes"/></svg></span>
+                Note Taker: Recorded hours
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-sidekick"/></svg></span>
+                Sidekick Plus+
+              </li>
             </ul>
             <button class="tier-select-btn">Select AI Co-Work</button>
           </div>
@@ -816,11 +853,26 @@
           </div>
           <div class="tier-body">
             <ul class="tier-features">
-              <li>AI Agents: Unlimited actions</li>
-              <li>AI Workflows: Unlimited runs</li>
-              <li>Vibe Apps included</li>
-              <li>Note Taker: Recorded hours</li>
-              <li>Sidekick Plus+</li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-agents"/></svg></span>
+                AI Agents: Unlimited actions
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-workflows"/></svg></span>
+                AI Workflows: Unlimited runs
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-vibe"/></svg></span>
+                Vibe Apps included
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-notes"/></svg></span>
+                Note Taker: Recorded hours
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-sidekick"/></svg></span>
+                Sidekick Plus+
+              </li>
             </ul>
             <button class="tier-select-btn">Select AI First</button>
           </div>
