@@ -1150,6 +1150,11 @@ document.addEventListener('DOMContentLoaded', () => {
       sl.classList.toggle('done', after < n);
     });
 
+    const deptFilter = document.getElementById('deptFilter');
+    if (deptFilter) {
+      deptFilter.style.display = (n === 1) ? 'flex' : 'none';
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
