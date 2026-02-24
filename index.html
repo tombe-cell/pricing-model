@@ -117,10 +117,11 @@
     }
     .dept-filter-btn {
       font-family: inherit; font-size: .82rem; font-weight: 600;
-      padding: 9px 22px; border-radius: 100px;
+      padding: 9px 22px; padding-left: 12px; border-radius: 100px;
       border: 1px solid rgba(255,255,255,.1);
       background: transparent; color: var(--text-secondary);
       cursor: pointer; transition: all .25s;
+      display: inline-flex; align-items: center; gap: 8px;
     }
     .dept-filter-btn:hover {
       border-color: rgba(255,255,255,.25); color: var(--text-primary);
@@ -131,6 +132,21 @@
       background: rgba(0,210,160,.12);
       color: var(--accent-teal);
       font-weight: 700;
+    }
+    .dept-filter-btn[data-dept="all"] .dept-check { display: none; }
+    .dept-check {
+      width: 16px; height: 16px; border-radius: 4px;
+      border: 2px solid rgba(255,255,255,.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all .2s;
+    }
+    .dept-check svg { width: 10px; height: 10px; opacity: 0; transition: opacity .2s; }
+    .dept-filter-btn.active:not([data-dept="all"]) .dept-check {
+      border-color: var(--accent-teal);
+      background: var(--accent-teal);
+    }
+    .dept-filter-btn.active:not([data-dept="all"]) .dept-check svg {
+      opacity: 1; color: #0B0D1A;
     }
     .step-indicator {
       display: flex; align-items: center; gap: 8px;
@@ -248,6 +264,18 @@
     }
     .tier-features li:last-child {
       border-bottom: none;
+    }
+    .tier-features li.dept-separator {
+      padding: 14px 0 8px; border-bottom: none; list-style: none;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .tier-features li.dept-separator:first-child {
+      padding-top: 0; border-top: none;
+    }
+    .dept-sep-label {
+      font-size: .72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--text-muted);
+      display: block; margin-bottom: 6px;
     }
     .tier-feature-icon {
       width: 20px; height: 20px; flex-shrink: 0;
@@ -677,7 +705,7 @@
       .step-indicator span:not(.step-dot) { display: none; }
       .step-dot { width: 26px; height: 26px; font-size: .7rem; }
       .dept-filter { margin-bottom: 16px; gap: 4px; }
-      .dept-filter-btn { padding: 7px 14px; font-size: .74rem; }
+      .dept-filter-btn { padding: 7px 14px; padding-left: 10px; font-size: .74rem; }
       .tiers-grid { gap: 10px; max-width: 100%; }
       .tier-card { border-radius: 14px; }
       .tier-top { padding: 14px 16px 10px; }
@@ -824,11 +852,11 @@
     <!-- DEPARTMENT FILTER -->
     <div class="dept-filter" id="deptFilter">
       <button class="dept-filter-btn active" data-dept="all">All</button>
-      <button class="dept-filter-btn" data-dept="hr">HR</button>
-      <button class="dept-filter-btn" data-dept="marketing">Marketing</button>
-      <button class="dept-filter-btn" data-dept="pmo">PMO</button>
-      <button class="dept-filter-btn" data-dept="sales">Sales</button>
-      <button class="dept-filter-btn" data-dept="it">IT</button>
+      <button class="dept-filter-btn" data-dept="hr"><span class="dept-check"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3 3 7-6"/></svg></span>HR</button>
+      <button class="dept-filter-btn" data-dept="marketing"><span class="dept-check"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3 3 7-6"/></svg></span>Marketing</button>
+      <button class="dept-filter-btn" data-dept="pmo"><span class="dept-check"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3 3 7-6"/></svg></span>PMO</button>
+      <button class="dept-filter-btn" data-dept="sales"><span class="dept-check"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3 3 7-6"/></svg></span>Sales</button>
+      <button class="dept-filter-btn" data-dept="it"><span class="dept-check"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3 3 7-6"/></svg></span>IT</button>
     </div>
 
     <!-- ═══ STEP 1: CHOOSE TIER (clean — name, tagline, agents on hover) ═══ -->
@@ -1178,26 +1206,26 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
       });
     } else {
-      const showLabel = depts.length > 1;
+      const multiDept = depts.length > 1;
       Object.keys(tierFeatureContainers).forEach(tierKey => {
-        const allCaps = [];
-        depts.forEach(dept => {
+        const parts = [];
+        depts.forEach((dept, i) => {
           const info = deptData[dept];
-          if (info && info.caps[tierKey]) {
-            info.caps[tierKey].slice(0, 4).forEach(c => {
-              allCaps.push({ ...c, deptLabel: info.label });
-            });
-          }
-        });
-        tierFeatureContainers[tierKey].innerHTML = allCaps.map(c => {
-          const label = showLabel ? `<span style="font-size:.7rem;color:var(--text-muted);margin-right:4px;">[${c.deptLabel}]</span>` : '';
-          return `
+          if (!info || !info.caps[tierKey]) return;
+          const caps = info.caps[tierKey].slice(0, 4);
+          const lis = caps.map(c => `
             <li>
               <span style="color: var(--accent-teal); font-size: .85rem; flex-shrink: 0;">&#10003;</span>
-              <span>${label}<strong style="color: var(--text-primary);">${c.stat(userCount)}</strong> ${c.name}</span>
+              <span><strong style="color: var(--text-primary);">${c.stat(userCount)}</strong> ${c.name}</span>
             </li>
-          `;
-        }).join('');
+          `).join('');
+          if (multiDept) {
+            parts.push(`<li class="dept-separator"><span class="dept-sep-label">${info.label}</span></li>` + lis);
+          } else {
+            parts.push(lis);
+          }
+        });
+        tierFeatureContainers[tierKey].innerHTML = parts.join('');
       });
     }
   }
