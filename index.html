@@ -1125,7 +1125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let selectedTier = null;
   let userCount = 10;
-  let currentDept = 'all';
+  let selectedDepts = []; // multi-select: empty = "All", else e.g. ['hr','marketing']
 
   const tierCards = document.querySelectorAll('.tier-card');
   const stepIndicators = document.querySelectorAll('.step-indicator');
@@ -1160,15 +1160,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function updateTierFeatures(dept) {
+  function updateTierFeatures(depts) {
     const tierFeatureContainers = {
       assist: document.querySelector('.tier-assist .tier-features'),
       cowork: document.querySelector('.tier-cowork .tier-features'),
       first: document.querySelector('.tier-first .tier-features')
     };
 
-    if (dept === 'all') {
-      // Show default features
+    if (!depts || depts.length === 0) {
       Object.keys(tierFeatureContainers).forEach(tierKey => {
         const features = defaultFeatures[tierKey];
         tierFeatureContainers[tierKey].innerHTML = features.map(f => `
@@ -1179,19 +1178,27 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
       });
     } else {
-      const deptInfo = deptData[dept];
-      if (deptInfo) {
-        Object.keys(tierFeatureContainers).forEach(tierKey => {
-          const caps = deptInfo.caps[tierKey] || [];
-          const limitedCaps = caps.slice(0, 4);
-          tierFeatureContainers[tierKey].innerHTML = limitedCaps.map(c => `
+      const showLabel = depts.length > 1;
+      Object.keys(tierFeatureContainers).forEach(tierKey => {
+        const allCaps = [];
+        depts.forEach(dept => {
+          const info = deptData[dept];
+          if (info && info.caps[tierKey]) {
+            info.caps[tierKey].slice(0, 4).forEach(c => {
+              allCaps.push({ ...c, deptLabel: info.label });
+            });
+          }
+        });
+        tierFeatureContainers[tierKey].innerHTML = allCaps.map(c => {
+          const label = showLabel ? `<span style="font-size:.7rem;color:var(--text-muted);margin-right:4px;">[${c.deptLabel}]</span>` : '';
+          return `
             <li>
               <span style="color: var(--accent-teal); font-size: .85rem; flex-shrink: 0;">&#10003;</span>
-              <span><strong style="color: var(--text-primary);">${c.stat(userCount)}</strong> ${c.name}</span>
+              <span>${label}<strong style="color: var(--text-primary);">${c.stat(userCount)}</strong> ${c.name}</span>
             </li>
-          `).join('');
-        });
-      }
+          `;
+        }).join('');
+      });
     }
   }
 
@@ -1238,13 +1245,25 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', selectTier);
   });
 
-  // ─── DEPARTMENT FILTER ───
+  // ─── DEPARTMENT FILTER (multi-select) ───
+  function syncDeptBtnStates() {
+    document.querySelectorAll('.dept-filter-btn').forEach(b => {
+      const d = b.dataset.dept;
+      b.classList.toggle('active', d === 'all' ? selectedDepts.length === 0 : selectedDepts.indexOf(d) >= 0);
+    });
+  }
   document.querySelectorAll('.dept-filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      currentDept = btn.dataset.dept;
-      document.querySelectorAll('.dept-filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      updateTierFeatures(currentDept);
+      const dept = btn.dataset.dept;
+      if (dept === 'all') {
+        selectedDepts = [];
+      } else {
+        const idx = selectedDepts.indexOf(dept);
+        if (idx >= 0) selectedDepts.splice(idx, 1);
+        else selectedDepts.push(dept);
+      }
+      syncDeptBtnStates();
+      updateTierFeatures(selectedDepts);
     });
   });
 
