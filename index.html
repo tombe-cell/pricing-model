@@ -318,7 +318,10 @@
     .tier-card.selected .tier-select-btn {
       background: var(--tier-accent); color: #0B0D1A;
     }
-
+    .tier-select-btn.contact-sales:disabled,
+    .tier-select-btn[disabled] {
+      cursor: default; opacity: 0.9;
+    }
 
     /* ─── STEP 2: USER COUNT ─── */
     .users-panel {
@@ -531,9 +534,17 @@
       text-align: center; font-size: 1rem; color: var(--text-secondary);
       margin-bottom: 40px; max-width: 560px; margin-left: auto; margin-right: auto;
     }
-    .checkout-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start;
+    .checkout-top {
+      display: flex; flex-wrap: wrap; align-items: flex-end; gap: 24px;
+      margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border);
     }
+    .checkout-top .checkout-billing-section { margin-bottom: 0; }
+    .checkout-top .checkout-seats-section { margin-bottom: 0; }
+    .checkout-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch;
+    }
+    .checkout-left, .checkout-right { display: flex; flex-direction: column; }
+    .checkout-plan-card, .payment-card { flex: 1; display: flex; flex-direction: column; min-height: 0; }
     @media (max-width: 768px) {
       .checkout-grid { grid-template-columns: 1fr; }
     }
@@ -574,12 +585,13 @@
     }
     .billing-btn.active { background: var(--gradient-main); color: #0B0D1A; }
     .billing-btn:not(.active):hover { background: rgba(255,255,255,.04); color: var(--text-primary); }
-    .checkout-plan-card { margin-bottom: 20px; }
+    .checkout-plan-card { margin-bottom: 0; }
     .checkout-plan-title {
       font-size: 1.1rem; font-weight: 800; color: var(--text-primary);
-      margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+      margin: 0; padding: 28px 36px 16px 36px; border-bottom: 1px solid var(--border);
     }
     .checkout-plan-title span { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .checkout-plan-card .summary-rows { padding: 20px 36px 20px 36px; }
     .checkout-back { margin-top: 12px; }
     .payment-card {
       background: var(--bg-card); backdrop-filter: blur(24px);
@@ -959,7 +971,7 @@
         <div class="tier-card tier-assist" data-tier="assist">
           <div class="tier-top">
             <h3 class="tier-name">AI Assist</h3>
-            <div class="tier-price">$160 <span class="tier-price-period">/mo</span></div>
+            <div class="tier-price">$155 <span class="tier-price-period">/mo</span></div>
             <p class="tier-credits">8,000 AI Credits / month</p>
             <p class="tier-tagline">For light AI usage and experimentation</p>
           </div>
@@ -983,7 +995,7 @@
           <div class="tier-popular-badge">Most Popular</div>
           <div class="tier-top">
             <h3 class="tier-name">AI Co-Work</h3>
-            <div class="tier-price">$499 <span class="tier-price-period">/mo</span></div>
+            <div class="tier-price">$475 <span class="tier-price-period">/mo</span></div>
             <p class="tier-credits">20,000 AI Credits / month</p>
             <p class="tier-tagline">For teams automating core workflows</p>
           </div>
@@ -1014,7 +1026,7 @@
         <div class="tier-card tier-first" data-tier="first">
           <div class="tier-top">
             <h3 class="tier-name">AI First</h3>
-            <div class="tier-price">Custom price</div>
+            <div class="tier-price">Custom</div>
             <p class="tier-credits">Starting 80,000 credits/month</p>
             <p class="tier-tagline">For organization-wide AI standardization</p>
           </div>
@@ -1045,7 +1057,7 @@
                 Enterprise-grade security & governance
               </li>
             </ul>
-            <button class="tier-select-btn">Contact sales</button>
+            <button type="button" class="tier-select-btn contact-sales" disabled>Contact sales</button>
           </div>
         </div>
 
@@ -1057,25 +1069,26 @@
       <div class="checkout-panel">
         <p class="checkout-subtitle">Here's a breakdown of your monthly investment. Review your plan and complete your purchase.</p>
 
-        <div class="checkout-grid">
-          <!-- LEFT: Plan + Seats + Billing -->
-          <div class="checkout-left">
-            <div class="checkout-seats-section">
-              <label>Seats</label>
-              <div class="seats-input-wrap">
-                <button class="seats-btn" id="usersMinus">−</button>
-                <input type="number" class="seats-input" id="usersInput" value="10" min="1" max="10000">
-                <button class="seats-btn" id="usersPlus">+</button>
-              </div>
+        <div class="checkout-top">
+          <div class="checkout-billing-section">
+            <label>Billing</label>
+            <div class="billing-toggle">
+              <button class="billing-btn" id="billingYearly">Yearly</button>
+              <button class="billing-btn active" id="billingMonthly">Monthly</button>
             </div>
-            <div class="checkout-billing-section">
-              <label>Billing</label>
-              <div class="billing-toggle">
-                <button class="billing-btn" id="billingYearly">Yearly</button>
-                <button class="billing-btn active" id="billingMonthly">Monthly</button>
-              </div>
+          </div>
+          <div class="checkout-seats-section">
+            <label>Seats</label>
+            <div class="seats-input-wrap">
+              <button class="seats-btn" id="usersMinus">−</button>
+              <input type="number" class="seats-input" id="usersInput" value="10" min="1" max="10000">
+              <button class="seats-btn" id="usersPlus">+</button>
             </div>
+          </div>
+        </div>
 
+        <div class="checkout-grid">
+          <div class="checkout-left">
             <div class="summary-card checkout-plan-card">
               <h3 class="checkout-plan-title">Your plan: <span id="summaryTierName">AI Assist</span></h3>
               <div class="summary-rows">
@@ -1090,7 +1103,7 @@
                   <span class="summary-row-label">AI Approach tier</span>
                   <span class="summary-row-value">
                     <span id="summaryTierLabel">AI Assist</span>
-                    <br><span class="summary-row-sub" id="summaryTierCost">$160/mo</span>
+                    <br><span class="summary-row-sub" id="summaryTierCost">$155/mo</span>
                   </span>
                 </div>
                 <div class="summary-divider"></div>
@@ -1149,7 +1162,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const tiers = {
     assist: {
-      name: 'AI Assist', cost: 160, icon: 'A',
+      name: 'AI Assist', cost: 155, icon: 'A',
       desc: 'AI helps with small tasks — categorization, summarization, content creation on demand.',
       buckets: [
         { ico: 'agents',   label: 'AI agentic actions', value: 'Up to 2,000' },
@@ -1157,7 +1170,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     cowork: {
-      name: 'AI Co-Work', cost: 499, icon: 'C',
+      name: 'AI Co-Work', cost: 475, icon: 'C',
       desc: 'AI owns deterministic tasks — solving tickets, handling routine workflows end-to-end.',
       buckets: [
         { ico: 'agents',   label: 'AI agentic actions', value: 'Up to 5,000' },
@@ -1304,8 +1317,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('summaryUsers').textContent = userCount;
     document.getElementById('summaryPlatformTotal').textContent = '= ' + fmtMoney(platformCost) + '/mo';
     document.getElementById('summaryTierLabel').textContent = tier.name;
-    document.getElementById('summaryTierCost').textContent = isCustom ? 'Custom price' : fmtMoney(tier.cost) + '/mo';
-    document.getElementById('summaryTotal').textContent = isCustom ? 'Custom price' : fmtMoney(total) + '/mo';
+    document.getElementById('summaryTierCost').textContent = isCustom ? 'Custom' : fmtMoney(tier.cost) + '/mo';
+    document.getElementById('summaryTotal').textContent = isCustom ? 'Custom' : fmtMoney(total) + '/mo';
 
     const bucketGrid = document.getElementById('summaryBucketGrid');
     if (bucketGrid) {
@@ -1333,7 +1346,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === btn) return;
       selectTier();
     });
-    btn.addEventListener('click', selectTier);
+    if (!btn.disabled) btn.addEventListener('click', selectTier);
   });
 
   // ─── DEPARTMENT FILTER (multi-select) ───
@@ -1511,7 +1524,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnBackTo1').addEventListener('click', () => goToStep(1));
   document.getElementById('btnCheckout').addEventListener('click', () => {
     const tier = tiers[selectedTier];
-    const totalMsg = tier.customPrice ? 'Custom price' : fmtMoney((userCount * 30) + tier.cost) + '/mo';
+    const totalMsg = tier.customPrice ? 'Custom' : fmtMoney((userCount * 30) + tier.cost) + '/mo';
     alert('Proceeding to checkout!\n\nTier: ' + tier.name + '\nUsers: ' + userCount + '\nTotal: ' + totalMsg);
   });
 });
