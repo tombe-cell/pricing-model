@@ -910,8 +910,8 @@
         <div class="tier-card tier-first" data-tier="first">
           <div class="tier-top">
             <h3 class="tier-name">AI First</h3>
-            <div class="tier-price">$3,400 <span class="tier-price-period">/mo</span></div>
-            <p class="tier-credits">340,000 AI Credits / month</p>
+            <div class="tier-price">Custom price</div>
+            <p class="tier-credits">Contact us for details</p>
             <p class="tier-tagline">For organization-wide AI standardization</p>
           </div>
           <div class="tier-body">
@@ -1086,7 +1086,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     first: {
-      name: 'AI First', cost: 3400, icon: 'F',
+      name: 'AI First', cost: null, customPrice: true, icon: 'F',
       desc: 'Dedicated AI Agent workforce that transforms entire department operations.',
       buckets: [
         { ico: 'agents',   label: 'AI Agents',     value: 'Unlimited', unlimited: true },
@@ -1198,7 +1198,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let renderSummary = function() {
     const tier = tiers[selectedTier];
     const platformCost = userCount * 50;
-    const total = platformCost + tier.cost;
+    const isCustom = tier.customPrice;
+    const total = isCustom ? null : platformCost + tier.cost;
 
     document.getElementById('summaryIcon').textContent = tier.icon;
     document.getElementById('summaryTierName').textContent = tier.name;
@@ -1206,8 +1207,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('summaryUsers').textContent = userCount;
     document.getElementById('summaryPlatformTotal').textContent = '= ' + fmtMoney(platformCost) + '/mo';
     document.getElementById('summaryTierLabel').textContent = tier.name;
-    document.getElementById('summaryTierCost').textContent = fmtMoney(tier.cost) + '/mo';
-    document.getElementById('summaryTotal').textContent = fmtMoney(total) + '/mo';
+    document.getElementById('summaryTierCost').textContent = isCustom ? 'Custom price' : fmtMoney(tier.cost) + '/mo';
+    document.getElementById('summaryTotal').textContent = isCustom ? 'Custom price' : fmtMoney(total) + '/mo';
 
     const bucketGrid = document.getElementById('summaryBucketGrid');
     bucketGrid.innerHTML = tier.buckets.map(b => `
@@ -1453,7 +1454,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnBackTo2').addEventListener('click', () => goToStep(2));
   document.getElementById('btnCheckout').addEventListener('click', () => {
     const tier = tiers[selectedTier];
-    alert('Proceeding to checkout!\n\nTier: ' + tier.name + '\nUsers: ' + userCount + '\nTotal: ' + fmtMoney((userCount * 50) + tier.cost) + '/mo');
+    const totalMsg = tier.customPrice ? 'Custom price' : fmtMoney((userCount * 50) + tier.cost) + '/mo';
+    alert('Proceeding to checkout!\n\nTier: ' + tier.name + '\nUsers: ' + userCount + '\nTotal: ' + totalMsg);
   });
 });
 </script>
