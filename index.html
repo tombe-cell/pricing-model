@@ -1095,10 +1095,10 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'AI Assist', cost: 160, icon: 'A',
       desc: 'AI helps with small tasks — categorization, summarization, content creation on demand.',
       buckets: [
-        { ico: 'vibe',     label: 'Vibe apps',     value: 'more than 10' },
-        { ico: 'agents',   label: 'AI Credits',    value: 'more than 8k' },
-        { ico: 'workflows',label: 'Active WFs',    value: 'more than 5' },
-        { ico: 'notes',    label: 'Notetaker',     value: '0' },
+        { ico: 'vibe',     label: 'Vibe apps',     value: '10 Vibe apps' },
+        { ico: 'agents',   label: 'AI Credits',    value: '8k AI Credits' },
+        { ico: 'workflows',label: 'Active WFs',    value: '5 Active WFs' },
+        { ico: 'notes',    label: 'Notetaker',     value: '0 Notetaker' },
         { ico: 'sidekick', label: 'Pro Seats',     value: 'included' },
       ]
     },
@@ -1106,10 +1106,10 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'AI Co-Work', cost: 499, icon: 'C',
       desc: 'AI owns deterministic tasks — solving tickets, handling routine workflows end-to-end.',
       buckets: [
-        { ico: 'vibe',     label: 'Vibe apps',     value: 'more than 10' },
-        { ico: 'agents',   label: 'AI Credits',    value: 'more than 20k' },
-        { ico: 'workflows',label: 'Active WFs',    value: 'more than 25' },
-        { ico: 'notes',    label: 'Notetaker',     value: 'more than 125' },
+        { ico: 'vibe',     label: 'Vibe apps',     value: '10 Vibe apps' },
+        { ico: 'agents',   label: 'AI Credits',    value: '20k AI Credits' },
+        { ico: 'workflows',label: 'Active WFs',    value: '25 Active WFs' },
+        { ico: 'notes',    label: 'Notetaker',     value: '125 Notetaker' },
         { ico: 'sidekick', label: 'Pro Seats',     value: 'included' },
       ]
     },
@@ -1117,10 +1117,10 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'AI First', cost: null, customPrice: true, icon: 'F',
       desc: 'Dedicated AI Agent workforce that transforms entire department operations.',
       buckets: [
-        { ico: 'vibe',     label: 'Vibe apps',     value: 'more than 25' },
-        { ico: 'agents',   label: 'AI Credits',    value: 'more than 80K' },
-        { ico: 'workflows',label: 'Active WFs',    value: 'more than 250' },
-        { ico: 'notes',    label: 'Notetaker',     value: 'more than 250' },
+        { ico: 'vibe',     label: 'Vibe apps',     value: '25 Vibe apps' },
+        { ico: 'agents',   label: 'AI Credits',    value: '80K AI Credits' },
+        { ico: 'workflows',label: 'Active WFs',    value: '250 Active WFs' },
+        { ico: 'notes',    label: 'Notetaker',     value: '250 Notetaker' },
         { ico: 'sidekick', label: 'Sidekick Plus Seats', value: 'included' },
         { ico: 'credits',  label: 'Ent Seats',     value: 'included' },
       ]
@@ -1130,24 +1130,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // Default "All" features (A1=Assist, A2=Co-Work, B1=First)
   const defaultFeatures = {
     assist: [
-      { ico: 'vibe', name: 'more than 10 Vibe apps' },
-      { ico: 'agents', name: 'more than 8k AI Credits' },
-      { ico: 'workflows', name: 'more than 5 Active WFs' },
-      { ico: 'notes', name: 'Notetaker: 0' },
+      { ico: 'vibe', name: '10 Vibe apps' },
+      { ico: 'agents', name: '8k AI Credits' },
+      { ico: 'workflows', name: '5 Active WFs' },
+      { ico: 'notes', name: '0 Notetaker' },
       { ico: 'sidekick', name: 'Pro Seats: included' }
     ],
     cowork: [
-      { ico: 'vibe', name: 'more than 10 Vibe apps' },
-      { ico: 'agents', name: 'more than 20k AI Credits' },
-      { ico: 'workflows', name: 'more than 25 Active WFs' },
-      { ico: 'notes', name: 'more than 125 Notetaker' },
+      { ico: 'vibe', name: '10 Vibe apps' },
+      { ico: 'agents', name: '20k AI Credits' },
+      { ico: 'workflows', name: '25 Active WFs' },
+      { ico: 'notes', name: '125 Notetaker' },
       { ico: 'sidekick', name: 'Pro Seats: included' }
     ],
     first: [
-      { ico: 'vibe', name: 'more than 25 Vibe apps' },
-      { ico: 'agents', name: 'more than 80K AI Credits' },
-      { ico: 'workflows', name: 'more than 250 Active WFs' },
-      { ico: 'notes', name: 'more than 250 Notetaker' },
+      { ico: 'vibe', name: '25 Vibe apps' },
+      { ico: 'agents', name: '80K AI Credits' },
+      { ico: 'workflows', name: '250 Active WFs' },
+      { ico: 'notes', name: '250 Notetaker' },
       { ico: 'sidekick', name: 'Sidekick Plus Seats: included' },
       { ico: 'credits', name: 'Ent Seats: included' }
     ]
