@@ -1094,7 +1094,7 @@
                 <div class="summary-row">
                   <span class="summary-row-label">Platform access</span>
                   <span class="summary-row-value">
-                    <span id="summaryUsers">10</span> users &times; $50/mo
+                    <span id="summaryUsers">10</span> users &times; $30/mo
                     <br><span class="summary-row-sub" id="summaryPlatformTotal">= $500/mo</span>
                   </span>
                 </div>
@@ -1318,7 +1318,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let renderSummary = function() {
     if (!selectedTier) return;
     const tier = tiers[selectedTier];
-    const platformCost = userCount * 50;
+    const platformCost = userCount * 30;
     const isCustom = tier.customPrice;
     const total = isCustom ? null : platformCost + tier.cost;
 
@@ -1535,7 +1535,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnBackTo1').addEventListener('click', () => goToStep(1));
   document.getElementById('btnCheckout').addEventListener('click', () => {
     const tier = tiers[selectedTier];
-    const totalMsg = tier.customPrice ? 'Custom price' : fmtMoney((userCount * 50) + tier.cost) + '/mo';
+    const totalMsg = tier.customPrice ? 'Custom price' : fmtMoney((userCount * 30) + tier.cost) + '/mo';
     alert('Proceeding to checkout!\n\nTier: ' + tier.name + '\nUsers: ' + userCount + '\nTotal: ' + totalMsg);
   });
 });
