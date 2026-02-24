@@ -1095,59 +1095,61 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'AI Assist', cost: 160, icon: 'A',
       desc: 'AI helps with small tasks — categorization, summarization, content creation on demand.',
       buckets: [
-        { ico: 'agents',   label: 'AI Agents',     value: 'Up to 50K actions' },
-        { ico: 'workflows',label: 'AI Workflows',  value: '10,000 runs' },
-        { ico: 'vibe',     label: 'Vibe Apps',     value: 'Vibe Apps' },
-        { ico: 'notes',    label: 'Note Taker',    value: 'Recorded hours' },
-        { ico: 'sidekick', label: 'Sidekick',      value: 'Sidekick Plus+' },
+        { ico: 'vibe',     label: 'Vibes',         value: '10' },
+        { ico: 'agents',   label: 'AI Credits',    value: '8k' },
+        { ico: 'workflows',label: 'Active WFs',    value: '5' },
+        { ico: 'notes',    label: 'Notetaker',     value: '0' },
+        { ico: 'sidekick', label: 'Pro Seats',     value: 'included' },
       ]
     },
     cowork: {
       name: 'AI Co-Work', cost: 499, icon: 'C',
       desc: 'AI owns deterministic tasks — solving tickets, handling routine workflows end-to-end.',
       buckets: [
-        { ico: 'agents',   label: 'AI Agents',     value: 'Up to 50K actions' },
-        { ico: 'workflows',label: 'AI Workflows',  value: '100,000 runs' },
-        { ico: 'vibe',     label: 'Vibe Apps',     value: 'Vibe Apps' },
-        { ico: 'notes',    label: 'Note Taker',    value: 'Recorded hours' },
-        { ico: 'sidekick', label: 'Sidekick',      value: 'Sidekick Plus+' },
+        { ico: 'vibe',     label: 'Vibes',         value: '100' },
+        { ico: 'agents',   label: 'AI Credits',    value: '20k' },
+        { ico: 'workflows',label: 'Active WFs',    value: '25' },
+        { ico: 'notes',    label: 'Notetaker',     value: '125' },
+        { ico: 'sidekick', label: 'Pro Seats',     value: 'included' },
       ]
     },
     first: {
       name: 'AI First', cost: null, customPrice: true, icon: 'F',
       desc: 'Dedicated AI Agent workforce that transforms entire department operations.',
       buckets: [
-        { ico: 'agents',   label: 'AI Agents',     value: 'Unlimited', unlimited: true },
-        { ico: 'workflows',label: 'AI Workflows',  value: 'Unlimited', unlimited: true },
-        { ico: 'vibe',     label: 'Vibe Apps',     value: 'Vibe Apps' },
-        { ico: 'notes',    label: 'Note Taker',    value: 'Recorded hours' },
-        { ico: 'sidekick', label: 'Sidekick',      value: 'Sidekick Plus+' },
+        { ico: 'vibe',     label: 'Vibes',         value: '25' },
+        { ico: 'agents',   label: 'AI Credits',    value: '80K' },
+        { ico: 'workflows',label: 'Active WFs',    value: '250' },
+        { ico: 'notes',    label: 'Notetaker',     value: '250' },
+        { ico: 'sidekick', label: 'Sidekick Plus Seats', value: 'included' },
+        { ico: 'credits',  label: 'Ent Seats',     value: 'included' },
       ]
     },
   };
 
-  // Default "All" features
+  // Default "All" features (A1=Assist, A2=Co-Work, B1=First)
   const defaultFeatures = {
     assist: [
-      { ico: 'agents', name: 'AI Agents: Up to 5K actions' },
-      { ico: 'workflows', name: 'AI Workflows: 25 active workflows' },
-      { ico: 'vibe', name: 'Vibe: 10 apps' },
-      { ico: 'notes', name: 'Note Taker: 120 hours' },
-      { ico: 'sidekick', name: 'Sidekick Plus+' }
+      { ico: 'vibe', name: 'Vibes: 10' },
+      { ico: 'agents', name: 'AI Credits: 8k' },
+      { ico: 'workflows', name: 'Active WFs: 5' },
+      { ico: 'notes', name: 'Notetaker: 0' },
+      { ico: 'sidekick', name: 'Pro Seats: included' }
     ],
     cowork: [
-      { ico: 'agents', name: 'AI Agents: Up to 20K actions/mo' },
-      { ico: 'workflows', name: 'AI Workflows: 45 active workflows' },
-      { ico: 'vibe', name: 'Vibe: 25 apps' },
-      { ico: 'notes', name: 'Note Taker: 250 hours' },
-      { ico: 'sidekick', name: 'Sidekick Plus+' }
+      { ico: 'vibe', name: 'Vibes: 100' },
+      { ico: 'agents', name: 'AI Credits: 20k' },
+      { ico: 'workflows', name: 'Active WFs: 25' },
+      { ico: 'notes', name: 'Notetaker: 125' },
+      { ico: 'sidekick', name: 'Pro Seats: included' }
     ],
     first: [
-      { ico: 'agents', name: 'AI Agents: Up to 50K actions/mo' },
-      { ico: 'workflows', name: 'AI Workflows: 250 active workflows' },
-      { ico: 'vibe', name: 'Vibe: 50 apps' },
-      { ico: 'notes', name: 'Note Taker: 400 hours' },
-      { ico: 'sidekick', name: 'Sidekick Plus+' }
+      { ico: 'vibe', name: 'Vibes: 25' },
+      { ico: 'agents', name: 'AI Credits: 80K' },
+      { ico: 'workflows', name: 'Active WFs: 250' },
+      { ico: 'notes', name: 'Notetaker: 250' },
+      { ico: 'sidekick', name: 'Sidekick Plus Seats: included' },
+      { ico: 'credits', name: 'Ent Seats: included' }
     ]
   };
 
