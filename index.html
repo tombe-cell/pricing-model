@@ -188,6 +188,7 @@
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 24px; position: relative; z-index: 1;
       max-width: 1060px; margin: 0 auto;
+      padding-top: 28px; /* Room for Most Popular badge */
     }
 
     .tier-card {
@@ -293,11 +294,12 @@
       margin-bottom: 12px;
     }
     .tier-popular-badge {
-      position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
+      position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
       background: var(--gradient-main); color: #0B0D1A;
       font-size: .72rem; font-weight: 800; text-transform: uppercase;
       letter-spacing: .06em; padding: 6px 20px; border-radius: 100px;
       white-space: nowrap; z-index: 5;
+      pointer-events: none;
     }
     .tier-select-btn {
       width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--tier-accent);
@@ -535,10 +537,10 @@
     @media (max-width: 768px) {
       .checkout-grid { grid-template-columns: 1fr; }
     }
-    .checkout-controls {
-      display: flex; gap: 24px; margin-bottom: 24px; flex-wrap: wrap;
+    .checkout-seats-section, .checkout-billing-section {
+      margin-bottom: 24px;
     }
-    .checkout-seats label, .checkout-billing label {
+    .checkout-seats-section label, .checkout-billing-section label {
       display: block; font-size: .75rem; font-weight: 600; color: var(--text-muted);
       text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px;
     }
@@ -989,7 +991,7 @@
         </div>
 
         <!-- AI Co-Work -->
-        <div class="tier-card tier-cowork" data-tier="cowork" style="margin-top: 16px;">
+        <div class="tier-card tier-cowork tier-has-badge" data-tier="cowork">
           <div class="tier-popular-badge">Most Popular</div>
           <div class="tier-top">
             <h3 class="tier-name">AI Co-Work</h3>
@@ -1070,21 +1072,19 @@
         <div class="checkout-grid">
           <!-- LEFT: Plan + Seats + Billing -->
           <div class="checkout-left">
-            <div class="checkout-controls">
-              <div class="checkout-seats">
-                <label>Seats</label>
-                <div class="seats-input-wrap">
-                  <button class="seats-btn" id="usersMinus">−</button>
-                  <input type="number" class="seats-input" id="usersInput" value="10" min="1" max="10000">
-                  <button class="seats-btn" id="usersPlus">+</button>
-                </div>
+            <div class="checkout-seats-section">
+              <label>Seats</label>
+              <div class="seats-input-wrap">
+                <button class="seats-btn" id="usersMinus">−</button>
+                <input type="number" class="seats-input" id="usersInput" value="10" min="1" max="10000">
+                <button class="seats-btn" id="usersPlus">+</button>
               </div>
-              <div class="checkout-billing">
-                <label>Billing</label>
-                <div class="billing-toggle">
-                  <button class="billing-btn" id="billingYearly">Yearly</button>
-                  <button class="billing-btn active" id="billingMonthly">Monthly</button>
-                </div>
+            </div>
+            <div class="checkout-billing-section">
+              <label>Billing</label>
+              <div class="billing-toggle">
+                <button class="billing-btn" id="billingYearly">Yearly</button>
+                <button class="billing-btn active" id="billingMonthly">Monthly</button>
               </div>
             </div>
 
@@ -1110,12 +1110,6 @@
                   <span class="summary-total-label">Total monthly cost</span>
                   <span class="summary-total-value" id="summaryTotal">$660/mo</span>
                 </div>
-              </div>
-              <div class="summary-buckets" id="summaryBuckets">
-                <div class="summary-buckets-header">
-                  <span class="summary-buckets-title">Your AI allocation</span>
-                </div>
-                <div class="summary-bucket-grid" id="summaryBucketGrid"></div>
               </div>
             </div>
             <button class="btn-back checkout-back" id="btnBackTo1">&larr; Change AI Approach</button>
@@ -1334,12 +1328,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('summaryTotal').textContent = isCustom ? 'Custom price' : fmtMoney(total) + '/mo';
 
     const bucketGrid = document.getElementById('summaryBucketGrid');
-    bucketGrid.innerHTML = tier.buckets.map(b => `
+    if (bucketGrid) {
+      bucketGrid.innerHTML = tier.buckets.map(b => `
       <div class="summary-bucket-item">
         <span class="sb-label"><span class="sb-icon"><svg><use href="#ico-${b.ico}"/></svg></span> ${b.label}</span>
         <span class="sb-value${b.unlimited ? ' unlimited' : ''}">${b.value}</span>
       </div>
     `).join('');
+    }
   };
 
   tierCards.forEach(card => {
