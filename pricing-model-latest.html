@@ -1110,7 +1110,7 @@
             <label>Seats</label>
             <div class="seats-input-wrap">
               <button class="seats-btn" id="usersMinus">−</button>
-              <input type="number" class="seats-input" id="usersInput" value="3" min="1" max="10000">
+              <input type="number" class="seats-input" id="usersInput" value="1" min="1" max="10000">
               <button class="seats-btn" id="usersPlus">+</button>
             </div>
           </div>
@@ -1124,8 +1124,8 @@
                 <div class="summary-row">
                   <span class="summary-row-label">Platform access</span>
                   <span class="summary-row-value">
-                    <span id="summaryUsers">3</span> seats &times; $30/mo
-                    <br><span class="summary-row-sub" id="summaryPlatformTotal">= $90/mo</span>
+                    <span id="summaryUsers">1</span> seats &times; $30/mo
+                    <br><span class="summary-row-sub" id="summaryPlatformTotal">= $30/mo</span>
                   </span>
                 </div>
                 <div class="summary-row">
@@ -1138,7 +1138,7 @@
                 <div class="summary-divider"></div>
                 <div class="summary-total">
                   <span class="summary-total-label">Total monthly cost</span>
-                  <span class="summary-total-value" id="summaryTotal">$245/mo</span>
+                  <span class="summary-total-value" id="summaryTotal">$185/mo</span>
                 </div>
               </div>
             </div>
@@ -1245,7 +1245,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   let selectedTier = null;
-  let userCount = 3;
+  let userCount = 1;
   let selectedDepts = []; // multi-select: empty = "All", else e.g. ['hr','marketing']
 
   const tierCards = document.querySelectorAll('.tier-card');
