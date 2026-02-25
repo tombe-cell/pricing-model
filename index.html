@@ -266,6 +266,9 @@
     .tier-features li:last-child {
       border-bottom: none;
     }
+    .tier-features .prefix-text {
+      font-weight: 300 !important;
+    }
     .tier-features li.tier-prebuilt-label {
       display: block; font-size: .7rem; font-weight: 700; text-transform: uppercase;
       letter-spacing: .06em; color: var(--text-secondary); margin-top: 14px;
@@ -1121,15 +1124,15 @@
                 <div class="summary-row">
                   <span class="summary-row-label">Platform access</span>
                   <span class="summary-row-value">
-                    <span id="summaryUsers">3</span> seats included
-                    <br><span class="summary-row-sub" id="summaryPlatformTotal">in tier</span>
+                    <span id="summaryUsers">3</span> seats &times; $30/mo
+                    <br><span class="summary-row-sub" id="summaryPlatformTotal">= $90/mo</span>
                   </span>
                 </div>
                 <div class="summary-row">
                   <span class="summary-row-label">AI Approach tier</span>
                   <span class="summary-row-value">
                     <span id="summaryTierLabel">AI Assist</span>
-                    <br><span class="summary-row-sub" id="summaryTierCost">$245/mo</span>
+                    <br><span class="summary-row-sub" id="summaryTierCost">$155/mo</span>
                   </span>
                 </div>
                 <div class="summary-divider"></div>
@@ -1188,7 +1191,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const tiers = {
     assist: {
-      name: 'AI Assist', cost: 245, icon: 'A',
+      name: 'AI Assist', cost: 155, icon: 'A',
       desc: 'AI helps with small tasks — categorization, summarization, content creation on demand.',
       buckets: [
         { ico: 'agents',   label: 'AI agentic actions', value: 'Up to 2,000' },
@@ -1196,7 +1199,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     cowork: {
-      name: 'AI Co-Work', cost: 565, icon: 'C',
+      name: 'AI Co-Work', cost: 475, icon: 'C',
       desc: 'AI owns deterministic tasks — solving tickets, handling routine workflows end-to-end.',
       buckets: [
         { ico: 'agents',   label: 'AI agentic actions', value: 'Up to 5,000' },
@@ -1296,12 +1299,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!depts || depts.length === 0) {
       Object.keys(tierFeatureContainers).forEach(tierKey => {
         const features = defaultFeatures[tierKey];
-        tierFeatureContainers[tierKey].innerHTML = features.map(f => `
-          <li>
-            <span class="tier-feature-icon"><svg><use href="#ico-${f.ico}"/></svg></span>
-            ${f.name}
-          </li>
-        `).join('');
+        tierFeatureContainers[tierKey].innerHTML = features.map(f => {
+          const prefix = f.name.startsWith('Up to ') ? 'Up to ' : f.name.startsWith('Starting at ') ? 'Starting at ' : null;
+          const rest = prefix ? f.name.slice(prefix.length) : f.name;
+          let content = f.name;
+          if (prefix) {
+            const numMatch = rest.match(/^([\d,]+)\s*(.*)$/);
+            const numPart = numMatch ? numMatch[1] : rest;
+            const textPart = numMatch ? numMatch[2] : '';
+            content = `<span class="prefix-text" style="color: var(--text-secondary);">${prefix}</span><strong style="color: var(--text-primary);">${numPart}</strong><span class="prefix-text" style="color: var(--text-secondary);">${textPart ? ' ' + textPart : ''}</span>`;
+          }
+          return `<li><span class="tier-feature-icon"><svg><use href="#ico-${f.ico}"/></svg></span><span>${content}</span></li>`;
+        }).join('');
       });
     } else {
       const multiDept = depts.length > 1;
@@ -1311,12 +1320,17 @@ document.addEventListener('DOMContentLoaded', () => {
           const info = deptData[dept];
           if (!info || !info.caps[tierKey]) return;
           const caps = info.caps[tierKey].slice(0, 4);
-          const capsLis = caps.map(c => `
+          const capsLis = caps.map(c => {
+            const statVal = c.stat(userCount).replace('Up to ', '');
+            const numMatch = statVal.match(/^([\d,]+)\s*(.*)$/);
+            const numPart = numMatch ? numMatch[1] : statVal;
+            const suffixPart = numMatch ? numMatch[2] : '';
+            return `
             <li>
               <span style="color: var(--tier-accent); font-size: .85rem; flex-shrink: 0;">&#10003;</span>
-              <span><strong style="color: var(--text-primary);">${c.stat(userCount)}</strong> ${c.name}</span>
+              <span><span class="prefix-text" style="color: var(--text-secondary);">Up to </span><strong style="color: var(--text-primary);">${numPart}</strong><span class="prefix-text" style="color: var(--text-secondary);">${suffixPart ? ' ' + suffixPart + ' ' : ' '}</span>${c.name}</span>
             </li>
-          `).join('');
+          `}).join('');
           const prebuilt = info.prebuilt && info.prebuilt[tierKey];
           const prebuiltLis = prebuilt && prebuilt.length ? `
             <li class="tier-prebuilt-label">Included apps & workflows</li>
@@ -1338,9 +1352,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let renderSummary = function() {
     if (!selectedTier) return;
     const tier = tiers[selectedTier];
-    const includedSeats = 3;
-    const extraSeats = Math.max(0, userCount - includedSeats);
-    const platformCost = extraSeats * 30;
+    const platformCost = userCount * 30;
     const isCustom = tier.customPrice;
     const total = isCustom ? null : tier.cost + platformCost;
 
@@ -1351,14 +1363,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (summaryTierDesc) summaryTierDesc.textContent = tier.desc;
     const platformRow = document.querySelector('.checkout-plan-card .summary-row');
     if (platformRow) {
-      const labelEl = platformRow.querySelector('.summary-row-label');
       const valueEl = platformRow.querySelector('.summary-row-value');
-      if (labelEl && valueEl) {
-        if (extraSeats === 0) {
-          valueEl.innerHTML = `<span id="summaryUsers">${userCount}</span> seats included<br><span class="summary-row-sub" id="summaryPlatformTotal">in tier</span>`;
-        } else {
-          valueEl.innerHTML = `<span id="summaryUsers">${userCount}</span> users (3 included + ${extraSeats} extra) &times; $30/mo<br><span class="summary-row-sub" id="summaryPlatformTotal">= ${fmtMoney(platformCost)}/mo</span>`;
-        }
+      if (valueEl) {
+        valueEl.innerHTML = `<span id="summaryUsers">${userCount}</span> seats &times; $30/mo<br><span class="summary-row-sub" id="summaryPlatformTotal">= ${fmtMoney(platformCost)}/mo</span>`;
       }
     }
     document.getElementById('summaryTierLabel').textContent = tier.name;
@@ -1590,8 +1597,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnBackTo1').addEventListener('click', () => goToStep(1));
   document.getElementById('btnCheckout').addEventListener('click', () => {
     const tier = tiers[selectedTier];
-    const extraSeats = Math.max(0, userCount - 3);
-    const totalMsg = tier.customPrice ? 'Custom' : fmtMoney(tier.cost + (extraSeats * 30)) + '/mo';
+    const totalMsg = tier.customPrice ? 'Custom' : fmtMoney(tier.cost + (userCount * 30)) + '/mo';
     alert('Proceeding to checkout!\n\nTier: ' + tier.name + '\nUsers: ' + userCount + '\nTotal: ' + totalMsg);
   });
 });
