@@ -997,7 +997,7 @@
         <div class="tier-card tier-assist" data-tier="assist">
           <div class="tier-top">
             <h3 class="tier-name">AI Assist</h3>
-            <div class="tier-price">$155 <span class="tier-price-period">/mo</span></div>
+            <div class="tier-price">$245 <span class="tier-price-period">/mo</span></div>
             <p class="tier-credits">8,000 AI Credits / month</p>
             <p class="tier-tagline">For light AI usage and experimentation, equal to half-time worker</p>
           </div>
@@ -1021,7 +1021,7 @@
           <div class="tier-popular-badge">Most Popular</div>
           <div class="tier-top">
             <h3 class="tier-name">AI Co-Work</h3>
-            <div class="tier-price">$475 <span class="tier-price-period">/mo</span></div>
+            <div class="tier-price">$565 <span class="tier-price-period">/mo</span></div>
             <p class="tier-credits">20,000 AI Credits / month</p>
             <p class="tier-tagline">For teams automating core workflows, equal to one full time team member</p>
           </div>
@@ -1121,15 +1121,15 @@
                 <div class="summary-row">
                   <span class="summary-row-label">Platform access</span>
                   <span class="summary-row-value">
-                    <span id="summaryUsers">3</span> users &times; $30/mo
-                    <br><span class="summary-row-sub" id="summaryPlatformTotal">= $90/mo</span>
+                    <span id="summaryUsers">3</span> seats included
+                    <br><span class="summary-row-sub" id="summaryPlatformTotal">in tier</span>
                   </span>
                 </div>
                 <div class="summary-row">
                   <span class="summary-row-label">AI Approach tier</span>
                   <span class="summary-row-value">
                     <span id="summaryTierLabel">AI Assist</span>
-                    <br><span class="summary-row-sub" id="summaryTierCost">$155/mo</span>
+                    <br><span class="summary-row-sub" id="summaryTierCost">$245/mo</span>
                   </span>
                 </div>
                 <div class="summary-divider"></div>
@@ -1188,7 +1188,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const tiers = {
     assist: {
-      name: 'AI Assist', cost: 155, icon: 'A',
+      name: 'AI Assist', cost: 245, icon: 'A',
       desc: 'AI helps with small tasks — categorization, summarization, content creation on demand.',
       buckets: [
         { ico: 'agents',   label: 'AI agentic actions', value: 'Up to 2,000' },
@@ -1196,7 +1196,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     cowork: {
-      name: 'AI Co-Work', cost: 475, icon: 'C',
+      name: 'AI Co-Work', cost: 565, icon: 'C',
       desc: 'AI owns deterministic tasks — solving tickets, handling routine workflows end-to-end.',
       buckets: [
         { ico: 'agents',   label: 'AI agentic actions', value: 'Up to 5,000' },
@@ -1338,17 +1338,29 @@ document.addEventListener('DOMContentLoaded', () => {
   let renderSummary = function() {
     if (!selectedTier) return;
     const tier = tiers[selectedTier];
-    const platformCost = userCount * 30;
+    const includedSeats = 3;
+    const extraSeats = Math.max(0, userCount - includedSeats);
+    const platformCost = extraSeats * 30;
     const isCustom = tier.customPrice;
-    const total = isCustom ? null : platformCost + tier.cost;
+    const total = isCustom ? null : tier.cost + platformCost;
 
     const summaryIcon = document.getElementById('summaryIcon');
     if (summaryIcon) summaryIcon.textContent = tier.icon;
     document.getElementById('summaryTierName').textContent = tier.name;
     const summaryTierDesc = document.getElementById('summaryTierDesc');
     if (summaryTierDesc) summaryTierDesc.textContent = tier.desc;
-    document.getElementById('summaryUsers').textContent = userCount;
-    document.getElementById('summaryPlatformTotal').textContent = '= ' + fmtMoney(platformCost) + '/mo';
+    const platformRow = document.querySelector('.checkout-plan-card .summary-row');
+    if (platformRow) {
+      const labelEl = platformRow.querySelector('.summary-row-label');
+      const valueEl = platformRow.querySelector('.summary-row-value');
+      if (labelEl && valueEl) {
+        if (extraSeats === 0) {
+          valueEl.innerHTML = `<span id="summaryUsers">${userCount}</span> seats included<br><span class="summary-row-sub" id="summaryPlatformTotal">in tier</span>`;
+        } else {
+          valueEl.innerHTML = `<span id="summaryUsers">${userCount}</span> users (3 included + ${extraSeats} extra) &times; $30/mo<br><span class="summary-row-sub" id="summaryPlatformTotal">= ${fmtMoney(platformCost)}/mo</span>`;
+        }
+      }
+    }
     document.getElementById('summaryTierLabel').textContent = tier.name;
     document.getElementById('summaryTierCost').textContent = isCustom ? 'Custom' : fmtMoney(tier.cost) + '/mo';
     document.getElementById('summaryTotal').textContent = isCustom ? 'Custom' : fmtMoney(total) + '/mo';
@@ -1577,7 +1589,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnBackTo1').addEventListener('click', () => goToStep(1));
   document.getElementById('btnCheckout').addEventListener('click', () => {
     const tier = tiers[selectedTier];
-    const totalMsg = tier.customPrice ? 'Custom' : fmtMoney((userCount * 30) + tier.cost) + '/mo';
+    const extraSeats = Math.max(0, userCount - 3);
+    const totalMsg = tier.customPrice ? 'Custom' : fmtMoney(tier.cost + (extraSeats * 30)) + '/mo';
     alert('Proceeding to checkout!\n\nTier: ' + tier.name + '\nUsers: ' + userCount + '\nTotal: ' + totalMsg);
   });
 });
