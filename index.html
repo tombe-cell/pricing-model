@@ -266,16 +266,42 @@
     .tier-features li:last-child {
       border-bottom: none;
     }
+    .tier-features li.tier-prebuilt-label {
+      display: block; font-size: .7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--text-secondary); margin-top: 14px;
+      padding-top: 12px; padding-bottom: 6px; border-top: 1px solid rgba(255,255,255,.04);
+      border-bottom: none; list-style: none;
+    }
     .tier-features li.dept-separator {
       padding: 14px 0 8px; border-bottom: none; list-style: none;
       border-top: 1px solid rgba(255,255,255,.06);
+      display: flex; flex-direction: column; align-items: stretch;
     }
     .tier-features li.dept-separator:first-child {
       padding-top: 0; border-top: none;
     }
+    .dept-separator-with-or {
+      padding: 18px 0 8px; border-top: none;
+    }
+    .dept-sep-or-wrap {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; margin-bottom: 12px; position: relative;
+      min-height: 1.2em;
+    }
+    .dept-sep-or-wrap::before {
+      content: ''; position: absolute; left: 0; right: 0; top: 50%;
+      transform: translateY(-50%); height: 1px;
+      background: rgba(255,255,255,.06);
+    }
+    .dept-sep-or-wrap .dept-sep-or {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .12em; color: var(--tier-accent);
+      background: var(--bg-card-solid); padding: 0 12px;
+      position: relative; z-index: 1;
+    }
     .dept-sep-label {
       font-size: .72rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .08em; color: var(--text-muted);
+      letter-spacing: .08em; color: var(--tier-accent);
       display: block; margin-bottom: 6px;
     }
     .tier-feature-icon {
@@ -592,7 +618,7 @@
     }
     .checkout-plan-title span { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .checkout-plan-card .summary-rows { padding: 20px 36px 20px 36px; }
-    .checkout-back { margin-top: 12px; }
+    .checkout-back { margin-top: auto; align-self: flex-start; }
     .payment-card {
       background: var(--bg-card); backdrop-filter: blur(24px);
       border: 1px solid var(--border); border-radius: 20px;
@@ -973,7 +999,7 @@
             <h3 class="tier-name">AI Assist</h3>
             <div class="tier-price">$155 <span class="tier-price-period">/mo</span></div>
             <p class="tier-credits">8,000 AI Credits / month</p>
-            <p class="tier-tagline">For light AI usage and experimentation</p>
+            <p class="tier-tagline">For light AI usage and experimentation, equal to half-time worker</p>
           </div>
           <div class="tier-body">
             <ul class="tier-features">
@@ -997,7 +1023,7 @@
             <h3 class="tier-name">AI Co-Work</h3>
             <div class="tier-price">$475 <span class="tier-price-period">/mo</span></div>
             <p class="tier-credits">20,000 AI Credits / month</p>
-            <p class="tier-tagline">For teams automating core workflows</p>
+            <p class="tier-tagline">For teams automating core workflows, equal to one full time team member</p>
           </div>
           <div class="tier-body">
             <ul class="tier-features">
@@ -1028,7 +1054,7 @@
             <h3 class="tier-name">AI First</h3>
             <div class="tier-price">Custom</div>
             <p class="tier-credits">Starting 80,000 credits/month</p>
-            <p class="tier-tagline">For organization-wide AI standardization</p>
+            <p class="tier-tagline">For organization-wide AI standardization, equal to full operating team</p>
           </div>
           <div class="tier-body">
             <ul class="tier-features">
@@ -1081,7 +1107,7 @@
             <label>Seats</label>
             <div class="seats-input-wrap">
               <button class="seats-btn" id="usersMinus">−</button>
-              <input type="number" class="seats-input" id="usersInput" value="10" min="1" max="10000">
+              <input type="number" class="seats-input" id="usersInput" value="3" min="1" max="10000">
               <button class="seats-btn" id="usersPlus">+</button>
             </div>
           </div>
@@ -1095,8 +1121,8 @@
                 <div class="summary-row">
                   <span class="summary-row-label">Platform access</span>
                   <span class="summary-row-value">
-                    <span id="summaryUsers">10</span> users &times; $30/mo
-                    <br><span class="summary-row-sub" id="summaryPlatformTotal">= $500/mo</span>
+                    <span id="summaryUsers">3</span> users &times; $30/mo
+                    <br><span class="summary-row-sub" id="summaryPlatformTotal">= $90/mo</span>
                   </span>
                 </div>
                 <div class="summary-row">
@@ -1109,7 +1135,7 @@
                 <div class="summary-divider"></div>
                 <div class="summary-total">
                   <span class="summary-total-label">Total monthly cost</span>
-                  <span class="summary-total-value" id="summaryTotal">$660/mo</span>
+                  <span class="summary-total-value" id="summaryTotal">$245/mo</span>
                 </div>
               </div>
             </div>
@@ -1216,7 +1242,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   let selectedTier = null;
-  let userCount = 10;
+  let userCount = 3;
   let selectedDepts = []; // multi-select: empty = "All", else e.g. ['hr','marketing']
 
   const tierCards = document.querySelectorAll('.tier-card');
@@ -1285,16 +1311,23 @@ document.addEventListener('DOMContentLoaded', () => {
           const info = deptData[dept];
           if (!info || !info.caps[tierKey]) return;
           const caps = info.caps[tierKey].slice(0, 4);
-          const lis = caps.map(c => `
+          const capsLis = caps.map(c => `
             <li>
-              <span style="color: var(--accent-teal); font-size: .85rem; flex-shrink: 0;">&#10003;</span>
+              <span style="color: var(--tier-accent); font-size: .85rem; flex-shrink: 0;">&#10003;</span>
               <span><strong style="color: var(--text-primary);">${c.stat(userCount)}</strong> ${c.name}</span>
             </li>
           `).join('');
+          const prebuilt = info.prebuilt && info.prebuilt[tierKey];
+          const prebuiltLis = prebuilt && prebuilt.length ? `
+            <li class="tier-prebuilt-label">Included apps & workflows</li>
+            ${prebuilt.map(name => `<li><span class="tier-feature-icon"><svg><use href="#ico-vibe"/></svg></span>${name}</li>`).join('')}
+          ` : '';
           if (multiDept) {
-            parts.push(`<li class="dept-separator"><span class="dept-sep-label">${info.label}</span></li>` + lis);
+            const sepClass = i > 0 ? 'dept-separator dept-separator-with-or' : 'dept-separator';
+            const orWrap = i > 0 ? '<div class="dept-sep-or-wrap"><span class="dept-sep-or">OR</span></div>' : '';
+            parts.push(`<li class="${sepClass}">${orWrap}<span class="dept-sep-label">${info.label}</span></li>` + capsLis + prebuiltLis);
           } else {
-            parts.push(lis);
+            parts.push(capsLis + prebuiltLis);
           }
         });
         tierFeatureContainers[tierKey].innerHTML = parts.join('');
@@ -1426,6 +1459,11 @@ document.addEventListener('DOMContentLoaded', () => {
     marketing: {
       label: 'Marketing',
       img: 'assets/team-marketing-1.png',
+      prebuilt: {
+        assist: ['Campaign Performance dashboard', 'A/B Test results visualizer'],
+        cowork: ['Multi-Channel Attribution Dashboard', 'Funnel Conversion Analytics Board', 'Campaign creatives generator', 'Campaign strategy builder'],
+        first: ['Cross-channel live reporting', 'Predictive funnel', 'Funnel conversion analytics board', 'Autonomous campaign optimizer', 'Campaign creatives generator', 'Campaign launch orchestrator']
+      },
       caps: {
         assist: [
           { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'AI launches and manages campaigns across multiple channels.', stat: () => '~80' },
@@ -1450,6 +1488,11 @@ document.addEventListener('DOMContentLoaded', () => {
     it: {
       label: 'IT',
       img: 'assets/team-it-1.png',
+      prebuilt: {
+        assist: ['Incident overview dashboard', 'SLA compliance Tracker'],
+        cowork: ['Incident trend analytics board', 'Incident overview dashboard', 'SLA Compliance Tracker', 'Incident triage automator'],
+        first: ['Security risk monitoring command center', 'Infrastructure utilization', 'Cost optimization dashboard', 'Incident triage automator & reports', 'SLA compliance Tracker', 'SLA breach alert Engine']
+      },
       caps: {
         assist: [
           { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'AI classifies and routes incoming IT support tickets.', stat: () => '~160' },
@@ -1474,6 +1517,11 @@ document.addEventListener('DOMContentLoaded', () => {
     pmo: {
       label: 'PMO',
       img: 'assets/team-pmo-1.png',
+      prebuilt: {
+        assist: ['Project status overview dashboard', 'Risk & dependency visual tracker'],
+        cowork: ['Project tracker', 'Risk detection reports', 'Portfolio health visualization', 'Predictive delivery risk analyzer'],
+        first: ['Portfolio health visualization', 'Risk detection reports', 'Capacity dashboard', 'SLA Risk escalation flow', 'Portfolio optimization engine', 'Predictive delivery risk analyzer']
+      },
       caps: {
         assist: [
           { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'AI generates sprint plans based on backlog and capacity.', stat: () => '~160' },
@@ -1498,6 +1546,11 @@ document.addEventListener('DOMContentLoaded', () => {
     sales: {
       label: 'Sales',
       img: 'assets/agent-sales.png',
+      prebuilt: {
+        assist: ['Sales pipeline dashboard', 'Deal health scorecard'],
+        cowork: ['Revenue forecast visualization', 'Sales pipeline dashboard', 'Deal Health scorecard', 'Lead Scoring & Smart Segmentation Flow'],
+        first: ['Predictive pipeline risk detector', 'Territory performance optimization dashboard', 'Autonomous leads reach out', 'Revenue forecast visualization', 'Sales pipeline dashboard', 'Upsell signal activation flow']
+      },
       caps: {
         assist: [
           { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'AI qualifies and scores inbound leads against your ICP.', stat: () => '~80' },
