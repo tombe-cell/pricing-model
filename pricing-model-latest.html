@@ -1060,15 +1060,15 @@
             <ul class="tier-features">
               <li>
                 <span class="tier-feature-icon"><svg><use href="#ico-agents"/></svg></span>
-                More than 20,000 AI agentic actions
+                Starting at 20,000 AI agentic actions
               </li>
               <li>
                 <span class="tier-feature-icon"><svg><use href="#ico-vibe"/></svg></span>
-                More than 25 Vibe apps
+                Starting at 25 Vibe apps
               </li>
               <li>
                 <span class="tier-feature-icon"><svg><use href="#ico-notes"/></svg></span>
-                More than 250 Notetaker hours
+                Starting at 250 Notetaker hours
               </li>
               <li>
                 <span class="tier-feature-icon"><svg><use href="#ico-sidekick"/></svg></span>
@@ -1076,7 +1076,7 @@
               </li>
               <li>
                 <span class="tier-feature-icon"><svg><use href="#ico-workflows"/></svg></span>
-                More than 25 AI workflows
+                Starting at 25 AI workflows
               </li>
               <li>
                 <span class="tier-feature-icon"><svg><use href="#ico-credits"/></svg></span>
@@ -1209,11 +1209,11 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'AI First', cost: null, customPrice: true, icon: 'F',
       desc: 'Dedicated AI Agent workforce that transforms entire department operations.',
       buckets: [
-        { ico: 'agents',   label: 'AI agentic actions', value: 'More than 20,000' },
-        { ico: 'vibe',     label: 'Vibe apps',           value: 'More than 25' },
-        { ico: 'notes',    label: 'Notetaker',           value: 'More than 250 hours' },
+        { ico: 'agents',   label: 'AI agentic actions', value: 'Starting at 20,000' },
+        { ico: 'vibe',     label: 'Vibe apps',           value: 'Starting at 25' },
+        { ico: 'notes',    label: 'Notetaker',           value: 'Starting at 250 hours' },
         { ico: 'sidekick', label: 'Sidekick Plus Seats', value: 'included' },
-        { ico: 'workflows',label: 'AI workflows',        value: 'More than 25' },
+        { ico: 'workflows',label: 'AI workflows',        value: 'Starting at 25' },
         { ico: 'credits',  label: 'Enterprise-grade security & governance', value: 'included' },
       ]
     },
@@ -1232,11 +1232,11 @@ document.addEventListener('DOMContentLoaded', () => {
       { ico: 'workflows', name: '5 AI workflows' }
     ],
     first: [
-      { ico: 'agents', name: 'More than 20,000 AI agentic actions' },
-      { ico: 'vibe', name: 'More than 25 Vibe apps' },
-      { ico: 'notes', name: 'More than 250 Notetaker hours' },
+      { ico: 'agents', name: 'Starting at 20,000 AI agentic actions' },
+      { ico: 'vibe', name: 'Starting at 25 Vibe apps' },
+      { ico: 'notes', name: 'Starting at 250 Notetaker hours' },
       { ico: 'sidekick', name: 'Sidekick Plus Seats: included' },
-      { ico: 'workflows', name: 'More than 25 AI workflows' },
+      { ico: 'workflows', name: 'Starting at 25 AI workflows' },
       { ico: 'credits', name: 'Enterprise-grade security & governance' }
     ]
   };
@@ -1417,11 +1417,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function onSeatsChange() {
-    userCount = Math.max(1, parseInt(usersInput.value) || 1);
+    userCount = Math.max(1, parseInt(usersInput.value, 10) || 1);
     usersInput.value = userCount;
     if (selectedTier) renderSummary();
   }
   usersInput.addEventListener('input', onSeatsChange);
+  usersInput.addEventListener('change', onSeatsChange);
   document.getElementById('usersMinus').addEventListener('click', () => {
     usersInput.value = Math.max(1, parseInt(usersInput.value) - 1);
     onSeatsChange();
@@ -1449,22 +1450,22 @@ document.addEventListener('DOMContentLoaded', () => {
       img: 'assets/team-hr-1.png',
       caps: {
         assist: [
-          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'AI screens and ranks incoming resumes against your role criteria.', stat: () => '~80 /mo' },
-          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Automated personalized follow-up emails to candidates after each hiring stage.', stat: () => '~800 /mo' },
-          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Create customized onboarding plans for new hires based on role and department.', stat: () => '~53 /mo' },
-          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'Streamline benefits enrollment with automated workflows and reminders.', stat: () => '~160 /mo' },
+          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'AI screens and ranks incoming resumes against your role criteria.', stat: () => 'Up to 80 /mo' },
+          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Automated personalized follow-up emails to candidates after each hiring stage.', stat: () => 'Up to 800 /mo' },
+          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Create customized onboarding plans for new hires based on role and department.', stat: () => 'Up to 53 /mo' },
+          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'Streamline benefits enrollment with automated workflows and reminders.', stat: () => 'Up to 160 /mo' },
         ],
         cowork: [
-          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'AI screens and ranks incoming resumes at scale for multi-team hiring.', stat: () => '~800 /mo' },
-          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Automated personalized follow-up emails across your full candidate pipeline.', stat: () => '~8,000 /mo' },
-          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Scalable onboarding plan generation for growing teams and departments.', stat: () => '~533 /mo' },
-          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'End-to-end benefits enrollment automation including open enrollment periods.', stat: () => '~1,600 /mo' },
+          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'AI screens and ranks incoming resumes at scale for multi-team hiring.', stat: () => 'Up to 800 /mo' },
+          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Automated personalized follow-up emails across your full candidate pipeline.', stat: () => 'Up to 8,000 /mo' },
+          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Scalable onboarding plan generation for growing teams and departments.', stat: () => 'Up to 533 /mo' },
+          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'End-to-end benefits enrollment automation including open enrollment periods.', stat: () => 'Up to 1,600 /mo' },
         ],
         first: [
-          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'Enterprise-scale AI screening and ranking across all departments and roles.', stat: () => '~4,000 /mo' },
-          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Organization-wide automated candidate communication and nurturing.', stat: () => '~40,000 /mo' },
-          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Comprehensive onboarding automation for every new hire across the organization.', stat: () => '~2,666 /mo' },
-          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'Full benefits lifecycle automation including open enrollment and life events.', stat: () => '~8,000 /mo' },
+          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'Enterprise-scale AI screening and ranking across all departments and roles.', stat: () => 'Up to 4,000 /mo' },
+          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Organization-wide automated candidate communication and nurturing.', stat: () => 'Up to 40,000 /mo' },
+          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Comprehensive onboarding automation for every new hire across the organization.', stat: () => 'Up to 2,666 /mo' },
+          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'Full benefits lifecycle automation including open enrollment and life events.', stat: () => 'Up to 8,000 /mo' },
         ],
       }
     },
@@ -1478,22 +1479,22 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       caps: {
         assist: [
-          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'AI launches and manages campaigns across multiple channels.', stat: () => '~80' },
-          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'Automated A/B testing of email subject lines for optimal open rates.', stat: () => '~800' },
-          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'AI drafts blog posts and social media content from briefs.', stat: () => '~160' },
-          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Score and segment marketing qualified leads automatically.', stat: () => '~53' },
+          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'AI launches and manages campaigns across multiple channels.', stat: () => 'Up to 80' },
+          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'Automated A/B testing of email subject lines for optimal open rates.', stat: () => 'Up to 800' },
+          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'AI drafts blog posts and social media content from briefs.', stat: () => 'Up to 160' },
+          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Score and segment marketing qualified leads automatically.', stat: () => 'Up to 53' },
         ],
         cowork: [
-          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'AI launches and manages campaigns at scale across all channels.', stat: () => '~800' },
-          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'High-volume A/B testing across all email campaigns.', stat: () => '~8,000' },
-          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'Scalable content creation for blogs, social, and marketing collateral.', stat: () => '~1,600' },
-          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Advanced lead scoring and segmentation for multi-team adoption.', stat: () => '~533' },
+          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'AI launches and manages campaigns at scale across all channels.', stat: () => 'Up to 800' },
+          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'High-volume A/B testing across all email campaigns.', stat: () => 'Up to 8,000' },
+          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'Scalable content creation for blogs, social, and marketing collateral.', stat: () => 'Up to 1,600' },
+          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Advanced lead scoring and segmentation for multi-team adoption.', stat: () => 'Up to 533' },
         ],
         first: [
-          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'Enterprise-wide multi-channel campaign orchestration.', stat: () => '~4,000' },
-          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'Organization-wide automated testing across all communications.', stat: () => '~40,000' },
-          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'Full content pipeline automation across all departments.', stat: () => '~8,000' },
-          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Enterprise lead intelligence with cross-department scoring.', stat: () => '~2,666' },
+          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'Enterprise-wide multi-channel campaign orchestration.', stat: () => 'Up to 4,000' },
+          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'Organization-wide automated testing across all communications.', stat: () => 'Up to 40,000' },
+          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'Full content pipeline automation across all departments.', stat: () => 'Up to 8,000' },
+          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Enterprise lead intelligence with cross-department scoring.', stat: () => 'Up to 2,666' },
         ],
       }
     },
@@ -1507,22 +1508,22 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       caps: {
         assist: [
-          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'AI classifies and routes incoming IT support tickets.', stat: () => '~160' },
-          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Automated account provisioning and access management.', stat: () => '~800' },
-          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'AI monitors systems and triggers runbooks on outage detection.', stat: () => '~80' },
-          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Automated software license usage auditing and reporting.', stat: () => '~53' },
+          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'AI classifies and routes incoming IT support tickets.', stat: () => 'Up to 160' },
+          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Automated account provisioning and access management.', stat: () => 'Up to 800' },
+          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'AI monitors systems and triggers runbooks on outage detection.', stat: () => 'Up to 80' },
+          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Automated software license usage auditing and reporting.', stat: () => 'Up to 53' },
         ],
         cowork: [
-          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'End-to-end ticket triage and resolution for multi-team IT.', stat: () => '~1,600' },
-          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Scalable provisioning across all departments and systems.', stat: () => '~8,000' },
-          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'Proactive outage detection with automated incident response.', stat: () => '~800' },
-          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Comprehensive license auditing across all software vendors.', stat: () => '~533' },
+          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'End-to-end ticket triage and resolution for multi-team IT.', stat: () => 'Up to 1,600' },
+          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Scalable provisioning across all departments and systems.', stat: () => 'Up to 8,000' },
+          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'Proactive outage detection with automated incident response.', stat: () => 'Up to 800' },
+          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Comprehensive license auditing across all software vendors.', stat: () => 'Up to 533' },
         ],
         first: [
-          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'Enterprise AI service desk handling the full support lifecycle.', stat: () => '~8,000' },
-          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Organization-wide zero-touch provisioning and access governance.', stat: () => '~40,000' },
-          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'Predictive infrastructure monitoring with automated remediation.', stat: () => '~4,000' },
-          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Continuous license optimization and vendor cost analysis.', stat: () => '~2,666' },
+          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'Enterprise AI service desk handling the full support lifecycle.', stat: () => 'Up to 8,000' },
+          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Organization-wide zero-touch provisioning and access governance.', stat: () => 'Up to 40,000' },
+          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'Predictive infrastructure monitoring with automated remediation.', stat: () => 'Up to 4,000' },
+          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Continuous license optimization and vendor cost analysis.', stat: () => 'Up to 2,666' },
         ],
       }
     },
@@ -1536,22 +1537,22 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       caps: {
         assist: [
-          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'AI generates sprint plans based on backlog and capacity.', stat: () => '~160' },
-          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'Automated deadline reminders to keep projects on track.', stat: () => '~800' },
-          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'AI summarizes weekly project progress across teams.', stat: () => '~160' },
-          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Generate resource allocation plans based on project needs.', stat: () => '~53' },
+          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'AI generates sprint plans based on backlog and capacity.', stat: () => 'Up to 160' },
+          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'Automated deadline reminders to keep projects on track.', stat: () => 'Up to 800' },
+          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'AI summarizes weekly project progress across teams.', stat: () => 'Up to 160' },
+          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Generate resource allocation plans based on project needs.', stat: () => 'Up to 53' },
         ],
         cowork: [
-          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'Scalable sprint planning across multiple teams and projects.', stat: () => '~1,600' },
-          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'High-volume automated reminders across all project portfolios.', stat: () => '~8,000' },
-          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'Multi-team progress summaries with cross-project insights.', stat: () => '~1,600' },
-          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Advanced resource planning with capacity optimization.', stat: () => '~533' },
+          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'Scalable sprint planning across multiple teams and projects.', stat: () => 'Up to 1,600' },
+          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'High-volume automated reminders across all project portfolios.', stat: () => 'Up to 8,000' },
+          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'Multi-team progress summaries with cross-project insights.', stat: () => 'Up to 1,600' },
+          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Advanced resource planning with capacity optimization.', stat: () => 'Up to 533' },
         ],
         first: [
-          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'Enterprise autonomous sprint planning across all departments.', stat: () => '~8,000' },
-          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'Organization-wide automated project communication.', stat: () => '~40,000' },
-          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'Full portfolio progress intelligence and executive reporting.', stat: () => '~8,000' },
-          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Enterprise resource optimization with AI-driven staffing.', stat: () => '~2,666' },
+          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'Enterprise autonomous sprint planning across all departments.', stat: () => 'Up to 8,000' },
+          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'Organization-wide automated project communication.', stat: () => 'Up to 40,000' },
+          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'Full portfolio progress intelligence and executive reporting.', stat: () => 'Up to 8,000' },
+          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Enterprise resource optimization with AI-driven staffing.', stat: () => 'Up to 2,666' },
         ],
       }
     },
@@ -1565,22 +1566,22 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       caps: {
         assist: [
-          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'AI qualifies and scores inbound leads against your ICP.', stat: () => '~80' },
-          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'Automated personalized follow-up emails using CRM data.', stat: () => '~800' },
-          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'AI compiles account history and talking points before calls.', stat: () => '~160' },
-          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Automatically identify and merge duplicate CRM records.', stat: () => '~53' },
+          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'AI qualifies and scores inbound leads against your ICP.', stat: () => 'Up to 80' },
+          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'Automated personalized follow-up emails using CRM data.', stat: () => 'Up to 800' },
+          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'AI compiles account history and talking points before calls.', stat: () => 'Up to 160' },
+          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Automatically identify and merge duplicate CRM records.', stat: () => 'Up to 53' },
         ],
         cowork: [
-          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'Full-funnel lead qualification and routing at scale.', stat: () => '~800' },
-          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'High-volume automated follow-ups across the full pipeline.', stat: () => '~8,000' },
-          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'Comprehensive call prep with competitive intelligence.', stat: () => '~1,600' },
-          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Advanced CRM hygiene across all sales data sources.', stat: () => '~533' },
+          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'Full-funnel lead qualification and routing at scale.', stat: () => 'Up to 800' },
+          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'High-volume automated follow-ups across the full pipeline.', stat: () => 'Up to 8,000' },
+          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'Comprehensive call prep with competitive intelligence.', stat: () => 'Up to 1,600' },
+          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Advanced CRM hygiene across all sales data sources.', stat: () => 'Up to 533' },
         ],
         first: [
-          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'Enterprise AI sales workforce across the entire funnel.', stat: () => '~4,000' },
-          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'Organization-wide automated sales communication.', stat: () => '~40,000' },
-          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'Enterprise deal intelligence with competitive battle cards.', stat: () => '~8,000' },
-          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Continuous CRM optimization and data quality management.', stat: () => '~2,666' },
+          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'Enterprise AI sales workforce across the entire funnel.', stat: () => 'Up to 4,000' },
+          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'Organization-wide automated sales communication.', stat: () => 'Up to 40,000' },
+          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'Enterprise deal intelligence with competitive battle cards.', stat: () => 'Up to 8,000' },
+          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Continuous CRM optimization and data quality management.', stat: () => 'Up to 2,666' },
         ],
       }
     },
