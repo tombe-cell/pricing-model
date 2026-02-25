@@ -1333,7 +1333,7 @@ document.addEventListener('DOMContentLoaded', () => {
           `}).join('');
           const prebuilt = info.prebuilt && info.prebuilt[tierKey];
           const prebuiltLis = prebuilt && prebuilt.length ? `
-            <li class="tier-prebuilt-label">Included apps & workflows</li>
+            <li class="tier-prebuilt-label">What you can typically build</li>
             ${prebuilt.map(name => `<li><span class="tier-feature-icon"><svg><use href="#ico-vibe"/></svg></span>${name}</li>`).join('')}
           ` : '';
           if (multiDept) {
