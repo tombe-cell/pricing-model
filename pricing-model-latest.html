@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your AI Plan — monday.com</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 400; color: #E4E6F0; background: #0B0D1A;
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    :root {
+      --bg-base: #0B0D1A;
+      --bg-card: rgba(20, 23, 42, .7);
+      --bg-card-solid: #141729;
+      --bg-elevated: rgba(30, 34, 58, .6);
+      --border: rgba(255,255,255,.08);
+      --border-glow: rgba(0,210,160,.25);
+      --text-primary: #FFFFFF;
+      --text-secondary: #8B8FA3;
+      --text-muted: #5A5E72;
+      --accent-teal: #00D2A0;
+      --accent-green: #00E5A0;
+      --accent-cyan: #00C4B4;
+      --gradient-main: linear-gradient(135deg, #00E5A0 0%, #00D2C4 25%, #5B8DEF 60%, #9B6BF2 100%);
+      --gradient-glow: radial-gradient(ellipse at 50% 0%, rgba(0,210,160,.15) 0%, transparent 60%);
+      --gradient-card-border: linear-gradient(160deg, rgba(255,255,255,.12) 0%, rgba(0,210,160,.2) 50%, rgba(255,255,255,.04) 100%);
+      --shadow-card: 0 4px 32px rgba(0,0,0,.3);
+      --shadow-glow: 0 0 60px rgba(0,210,160,.08);
+    }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(11,13,26,.85); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between; height: 64px;
+    }
+    .logo-img { height: 28px; width: auto; }
+    .logo-mark {
+      display: inline-flex; align-items: center; gap: 6px;
+      text-decoration: none;
+    }
+    .logo-mark-icon {
+      width: 28px; height: 28px; flex-shrink: 0;
+    }
+    .logo-mark-text {
+      font-size: 1.2rem; font-weight: 700; color: #fff;
+      letter-spacing: -.01em; line-height: 1;
+    }
+    .logo-mark-text .dot-com {
+      font-weight: 400; color: rgba(255,255,255,.55);
+    }
+    .footer .logo-mark { opacity: .45; justify-content: center; margin-bottom: 12px; }
+    .footer .logo-mark-icon { width: 22px; height: 22px; }
+    .footer .logo-mark-text { font-size: 1rem; }
+    .nav-back {
+      font-size: .9rem; font-weight: 500; color: var(--text-secondary);
+      transition: color .15s; display: flex; align-items: center; gap: 6px;
+    }
+    .nav-back:hover { color: var(--accent-teal); }
+
+    /* ─── PAGE WRAPPER ─── */
+    .page {
+      padding: 120px 0 80px;
+      position: relative; min-height: 100vh;
+    }
+    .page::before {
+      content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 1000px; height: 1000px;
+      background: radial-gradient(circle, rgba(0,210,160,.06) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .page-header {
+      text-align: center; max-width: 680px; margin: 0 auto 56px;
+      position: relative; z-index: 1;
+    }
+    .page-header h1 {
+      font-size: 3rem; font-weight: 800; line-height: 1.12;
+      margin-bottom: 16px; color: var(--text-primary);
+    }
+    .page-header h1 span {
+      background: var(--gradient-main);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .page-header p {
+      font-size: 1.1rem; color: var(--text-secondary); max-width: 560px; margin: 0 auto;
+    }
+
+    /* ─── STEP INDICATORS ─── */
+    .steps-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin-bottom: 24px; position: relative; z-index: 1;
+    }
+
+    /* ─── DEPARTMENT FILTER ─── */
+    .dept-filter {
+      display: flex; justify-content: center; gap: 8px;
+      flex-wrap: wrap; margin-bottom: 48px; position: relative; z-index: 1;
+    }
+    .dept-filter-btn {
+      font-family: inherit; font-size: .82rem; font-weight: 600;
+      padding: 9px 22px; padding-left: 12px; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: transparent; color: var(--text-secondary);
+      cursor: pointer; transition: all .25s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .dept-filter-btn:hover {
+      border-color: rgba(255,255,255,.25); color: var(--text-primary);
+      background: rgba(255,255,255,.04);
+    }
+    .dept-filter-btn.active {
+      border-color: var(--accent-teal);
+      background: rgba(0,210,160,.12);
+      color: var(--accent-teal);
+      font-weight: 700;
+    }
+    .dept-filter-btn[data-dept="all"] .dept-check { display: none; }
+    .dept-check {
+      width: 16px; height: 16px; border-radius: 4px;
+      border: 2px solid rgba(255,255,255,.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all .2s;
+    }
+    .dept-check svg { width: 10px; height: 10px; opacity: 0; transition: opacity .2s; }
+    .dept-filter-btn.active:not([data-dept="all"]) .dept-check {
+      border-color: var(--accent-teal);
+      background: var(--accent-teal);
+    }
+    .dept-filter-btn.active:not([data-dept="all"]) .dept-check svg {
+      opacity: 1; color: #0B0D1A;
+    }
+    .step-indicator {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .85rem; font-weight: 600; color: var(--text-muted);
+      transition: color .3s;
+    }
+    .step-indicator.active { color: var(--accent-teal); }
+    .step-indicator.done { color: var(--text-secondary); }
+    .step-dot {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(255,255,255,.06); border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700; transition: all .3s;
+    }
+    .step-indicator.active .step-dot {
+      background: var(--gradient-main); border-color: transparent;
+      color: #0B0D1A; box-shadow: 0 0 20px rgba(0,210,160,.3);
+    }
+    .step-indicator.done .step-dot {
+      background: rgba(0,210,160,.15); border-color: rgba(0,210,160,.3);
+      color: var(--accent-teal);
+    }
+    .step-line {
+      width: 48px; height: 2px; background: rgba(255,255,255,.08);
+      margin: 0 12px; transition: background .3s;
+    }
+    .step-line.done { background: rgba(0,210,160,.3); }
+
+    /* ─── FLOW PANELS ─── */
+    .flow-panel { display: none; animation: fadeUp .4s ease; }
+    .flow-panel.active { display: block; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── TIER CARDS (step 1 — clean, no features) ─── */
+    .tiers-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; position: relative; z-index: 1;
+      max-width: 1060px; margin: 0 auto;
+      padding-top: 28px; /* Room for Most Popular badge */
+    }
+
+    .tier-card {
+      --tier-accent: var(--accent-teal);
+      background: var(--bg-card); backdrop-filter: blur(24px);
+      border: 2px solid var(--border); border-radius: 24px;
+      padding: 0; position: relative; cursor: pointer;
+      display: flex; flex-direction: column;
+      transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s, border-color .35s;
+      overflow: visible;
+    }
+    .tier-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 64px rgba(0,0,0,.5), 0 0 50px color-mix(in srgb, var(--tier-accent) 12%, transparent);
+      border-color: color-mix(in srgb, var(--tier-accent) 30%, transparent);
+    }
+    .tier-card.selected {
+      border-color: var(--tier-accent);
+      box-shadow: 0 0 40px color-mix(in srgb, var(--tier-accent) 20%, transparent);
+    }
+    .tier-card.selected::after {
+      content: '✓'; position: absolute; top: 16px; right: 16px;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--tier-accent); color: #0B0D1A;
+      font-size: .8rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 5;
+    }
+
+    .tier-assist { --tier-accent: #00D2A0; }
+    .tier-cowork { --tier-accent: #5B8DEF; }
+    .tier-first  { --tier-accent: #9B6BF2; }
+
+    .tier-top {
+      padding: 32px 28px 24px; position: relative;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--tier-accent) 12%, #0B0D1A) 0%, var(--bg-card) 100%);
+      border-radius: 24px 24px 0 0; overflow: hidden;
+    }
+    .tier-badge {
+      display: inline-block; font-size: .7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+      padding: 5px 14px; border-radius: 100px;
+      background: color-mix(in srgb, var(--tier-accent) 15%, transparent);
+      color: var(--tier-accent); margin-bottom: 14px;
+    }
+    .tier-name {
+      font-size: 1.6rem; font-weight: 800; color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .tier-price {
+      font-size: 2.2rem; font-weight: 900; color: var(--tier-accent);
+      margin-bottom: 12px; line-height: 1;
+    }
+    .tier-price-period {
+      font-size: .85rem; font-weight: 600; color: var(--text-secondary);
+    }
+    .tier-tagline {
+      font-size: .92rem; color: var(--text-secondary); line-height: 1.5;
+    }
+
+    .tier-body {
+      padding: 20px 28px 28px; flex: 1;
+      display: flex; flex-direction: column; justify-content: space-between;
+      border-radius: 0 0 24px 24px; overflow: hidden;
+    }
+
+    .tier-features {
+      list-style: none; margin: 0 0 20px 0; padding: 0;
+    }
+    .tier-features li {
+      padding: 10px 0; font-size: .88rem; color: var(--text-secondary);
+      display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+      border-bottom: 1px solid rgba(255,255,255,.03);
+    }
+    .tier-features li:last-child {
+      border-bottom: none;
+    }
+    .tier-features li.tier-prebuilt-label {
+      display: block; font-size: .7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--text-secondary); margin-top: 14px;
+      padding-top: 12px; padding-bottom: 6px; border-top: 1px solid rgba(255,255,255,.04);
+      border-bottom: none; list-style: none;
+    }
+    .tier-features li.dept-separator {
+      padding: 14px 0 8px; border-bottom: none; list-style: none;
+      border-top: 1px solid rgba(255,255,255,.06);
+      display: flex; flex-direction: column; align-items: stretch;
+    }
+    .tier-features li.dept-separator:first-child {
+      padding-top: 0; border-top: none;
+    }
+    .dept-separator-with-or {
+      padding: 18px 0 8px; border-top: none;
+    }
+    .dept-sep-or-wrap {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; margin-bottom: 12px; position: relative;
+      min-height: 1.2em;
+    }
+    .dept-sep-or-wrap::before {
+      content: ''; position: absolute; left: 0; right: 0; top: 50%;
+      transform: translateY(-50%); height: 1px;
+      background: rgba(255,255,255,.06);
+    }
+    .dept-sep-or-wrap .dept-sep-or {
+      font-size: .7rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .12em; color: var(--tier-accent);
+      background: var(--bg-card-solid); padding: 0 12px;
+      position: relative; z-index: 1;
+    }
+    .dept-sep-label {
+      font-size: .72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--tier-accent);
+      display: block; margin-bottom: 6px;
+    }
+    .tier-feature-icon {
+      width: 20px; height: 20px; flex-shrink: 0;
+      border-radius: 6px; background: rgba(0,210,160,.1);
+      color: var(--tier-accent);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .tier-feature-icon svg {
+      width: 12px; height: 12px;
+    }
+
+    .tier-credits {
+      font-size: .85rem; font-weight: 700; color: var(--tier-accent);
+      margin-bottom: 12px;
+    }
+    .tier-popular-badge {
+      position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
+      background: var(--gradient-main); color: #0B0D1A;
+      font-size: .72rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .06em; padding: 6px 20px; border-radius: 100px;
+      white-space: nowrap; z-index: 5;
+      pointer-events: none;
+    }
+    .tier-select-btn {
+      width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--tier-accent);
+      background: transparent; color: var(--tier-accent); font-family: inherit;
+      font-size: .95rem; font-weight: 700; cursor: pointer; transition: all .25s;
+    }
+    .tier-select-btn:hover {
+      background: color-mix(in srgb, var(--tier-accent) 12%, transparent);
+    }
+    .tier-select-btn.filled {
+      background: var(--gradient-main); border-color: transparent; color: #0B0D1A;
+    }
+    .tier-select-btn.filled:hover {
+      box-shadow: 0 0 32px rgba(0,210,160,.35); transform: translateY(-2px);
+    }
+    .tier-card.selected .tier-select-btn {
+      background: var(--tier-accent); color: #0B0D1A;
+    }
+    .tier-select-btn.contact-sales:disabled,
+    .tier-select-btn[disabled] {
+      cursor: default; opacity: 0.9;
+    }
+
+    /* ─── STEP 2: USER COUNT ─── */
+    .users-panel {
+      max-width: 560px; margin: 0 auto; text-align: center;
+      position: relative; z-index: 1;
+    }
+    .users-panel h2 {
+      font-size: 2rem; font-weight: 800; margin-bottom: 8px; color: var(--text-primary);
+    }
+    .users-panel p {
+      font-size: 1rem; color: var(--text-secondary); margin-bottom: 36px;
+    }
+    .selected-tier-recap {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px 20px; margin-bottom: 28px;
+      font-size: .88rem; color: var(--text-secondary);
+    }
+    .selected-tier-recap strong {
+      background: var(--gradient-main);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .users-input-wrap {
+      display: flex; align-items: center; gap: 16px;
+      justify-content: center; margin-bottom: 32px;
+    }
+    .users-minus, .users-plus {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(255,255,255,.06); border: 1px solid var(--border);
+      color: var(--text-secondary); font-size: 1.4rem; font-weight: 700;
+      cursor: pointer; transition: all .2s; display: flex;
+      align-items: center; justify-content: center; font-family: inherit;
+    }
+    .users-minus:hover, .users-plus:hover {
+      border-color: var(--accent-teal); color: var(--accent-teal);
+      background: rgba(0,210,160,.08);
+    }
+    .users-input {
+      width: 120px; text-align: center; font-size: 2.5rem; font-weight: 900;
+      font-family: inherit; color: var(--text-primary);
+      background: transparent; border: none; border-bottom: 2px solid var(--border);
+      outline: none; padding: 8px 0;
+      -moz-appearance: textfield;
+    }
+    .users-input::-webkit-inner-spin-button,
+    .users-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .users-input:focus { border-color: var(--accent-teal); }
+    .users-hint {
+      font-size: .82rem; color: var(--text-muted); margin-bottom: 36px;
+    }
+    .btn-continue {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 16px 48px; border-radius: 14px; border: none;
+      background: var(--gradient-main); color: #0B0D1A;
+      font-family: inherit; font-size: 1.05rem; font-weight: 700;
+      cursor: pointer; transition: all .25s;
+    }
+    .btn-continue:hover {
+      box-shadow: 0 0 32px rgba(0,210,160,.35); transform: translateY(-2px);
+    }
+    .btn-continue:disabled {
+      opacity: .4; cursor: not-allowed; transform: none;
+      box-shadow: none;
+    }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 20px; padding: 10px 24px; border-radius: 10px;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--text-secondary); font-family: inherit;
+      font-size: .88rem; font-weight: 500; cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-back:hover { border-color: rgba(255,255,255,.2); color: var(--text-primary); }
+
+    /* ─── STEP 3: SUMMARY ─── */
+    .summary-panel {
+      max-width: 680px; margin: 0 auto; position: relative; z-index: 1;
+    }
+    .summary-panel h2 {
+      font-size: 2rem; font-weight: 800; margin-bottom: 8px;
+      color: var(--text-primary); text-align: center;
+    }
+    .summary-panel > p {
+      font-size: 1rem; color: var(--text-secondary);
+      text-align: center; margin-bottom: 36px;
+    }
+    .summary-card {
+      background: var(--bg-card); backdrop-filter: blur(24px);
+      border: 1px solid var(--border); border-radius: 24px;
+      overflow: hidden;
+    }
+    .summary-top {
+      padding: 32px 36px; display: flex; align-items: center; gap: 20px;
+      background: linear-gradient(135deg, rgba(0,210,160,.06) 0%, rgba(91,141,239,.06) 50%, rgba(155,107,242,.06) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .summary-tier-icon {
+      font-size: 3rem; font-weight: 900; flex-shrink: 0;
+      line-height: 1;
+      background: var(--gradient-main);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .summary-tier-info h3 {
+      font-size: 1.3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 2px;
+    }
+    .summary-tier-info p { font-size: .85rem; color: var(--text-secondary); }
+
+    .summary-rows { padding: 28px 36px; }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+      font-size: .95rem;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row-label { color: var(--text-secondary); }
+    .summary-row-value { color: var(--text-primary); font-weight: 600; text-align: right; }
+    .summary-row-sub { font-size: .78rem; color: var(--text-muted); font-weight: 400; }
+
+    .summary-divider {
+      height: 1px; margin: 4px 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(0,210,160,.25) 50%, transparent 100%);
+    }
+    .summary-total {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0 0; font-size: 1.1rem;
+    }
+    .summary-total-label {
+      font-weight: 700; color: var(--text-primary);
+    }
+    .summary-total-value {
+      font-size: 2rem; font-weight: 900;
+      background: var(--gradient-main);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .summary-actions {
+      padding: 28px 36px; border-top: 1px solid var(--border);
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-checkout {
+      padding: 16px 48px; border-radius: 14px; border: none;
+      background: var(--gradient-main); color: #0B0D1A;
+      font-family: inherit; font-size: 1.05rem; font-weight: 700;
+      cursor: pointer; transition: all .25s;
+    }
+    .btn-checkout:hover {
+      box-shadow: 0 0 32px rgba(0,210,160,.35); transform: translateY(-2px);
+    }
+    .btn-ghost-outline {
+      padding: 16px 32px; border-radius: 14px;
+      border: 2px solid rgba(255,255,255,.15); background: transparent;
+      color: var(--text-secondary); font-family: inherit;
+      font-size: .95rem; font-weight: 600; cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-ghost-outline:hover {
+      border-color: var(--accent-teal); color: var(--accent-teal);
+    }
+
+    /* ─── SUMMARY BUCKETS ─── */
+    .summary-buckets {
+      border-top: 1px solid var(--border);
+      padding: 24px 36px;
+    }
+    .summary-buckets-header {
+      margin-bottom: 16px;
+    }
+    .summary-buckets-title {
+      font-size: .75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--text-muted);
+    }
+    .summary-bucket-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .summary-bucket-item {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 12px; padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .summary-bucket-item .sb-label {
+      font-size: .72rem; color: var(--text-muted); font-weight: 500;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .summary-bucket-item .sb-icon {
+      width: 24px; height: 24px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,210,160,.1);
+      color: var(--accent-teal);
+    }
+    .summary-bucket-item .sb-icon svg {
+      width: 14px; height: 14px;
+    }
+    .summary-bucket-item .sb-value {
+      font-size: 1rem; font-weight: 800; color: var(--text-primary);
+    }
+    .summary-bucket-item .sb-value.unlimited {
+      background: var(--gradient-main);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── CHECKOUT ─── */
+    .checkout-panel { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+    .checkout-subtitle {
+      text-align: center; font-size: 1rem; color: var(--text-secondary);
+      margin-bottom: 40px; max-width: 560px; margin-left: auto; margin-right: auto;
+    }
+    .checkout-top {
+      display: flex; flex-wrap: wrap; align-items: flex-end; gap: 24px;
+      margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border);
+    }
+    .checkout-top .checkout-billing-section { margin-bottom: 0; }
+    .checkout-top .checkout-seats-section { margin-bottom: 0; }
+    .checkout-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch;
+    }
+    .checkout-left, .checkout-right { display: flex; flex-direction: column; }
+    .checkout-plan-card, .payment-card { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+    @media (max-width: 768px) {
+      .checkout-grid { grid-template-columns: 1fr; }
+    }
+    .checkout-seats-section, .checkout-billing-section {
+      margin-bottom: 24px;
+    }
+    .checkout-seats-section label, .checkout-billing-section label {
+      display: block; font-size: .75rem; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px;
+    }
+    .seats-input-wrap {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .seats-btn {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(255,255,255,.06); border: 1px solid var(--border);
+      color: var(--text-secondary); font-size: 1.2rem; font-weight: 700;
+      cursor: pointer; transition: all .2s; font-family: inherit;
+    }
+    .seats-btn:hover { border-color: var(--accent-teal); color: var(--accent-teal); }
+    .seats-input {
+      width: 70px; text-align: center; font-size: 1.25rem; font-weight: 700;
+      font-family: inherit; color: var(--text-primary);
+      background: transparent; border: 1px solid var(--border);
+      border-radius: 10px; padding: 8px; outline: none;
+      -moz-appearance: textfield;
+    }
+    .seats-input::-webkit-inner-spin-button, .seats-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .seats-input:focus { border-color: var(--accent-teal); }
+    .billing-toggle {
+      display: flex; gap: 0; border-radius: 10px;
+      border: 1px solid var(--border); overflow: hidden;
+    }
+    .billing-btn {
+      padding: 10px 20px; font-family: inherit; font-size: .88rem; font-weight: 600;
+      background: transparent; border: none; color: var(--text-secondary);
+      cursor: pointer; transition: all .2s;
+    }
+    .billing-btn.active { background: var(--gradient-main); color: #0B0D1A; }
+    .billing-btn:not(.active):hover { background: rgba(255,255,255,.04); color: var(--text-primary); }
+    .checkout-plan-card { margin-bottom: 0; }
+    .checkout-plan-title {
+      font-size: 1.1rem; font-weight: 800; color: var(--text-primary);
+      margin: 0; padding: 28px 36px 16px 36px; border-bottom: 1px solid var(--border);
+    }
+    .checkout-plan-title span { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .checkout-plan-card .summary-rows { padding: 20px 36px 20px 36px; }
+    .checkout-back { margin-top: auto; align-self: flex-start; }
+    .payment-card {
+      background: var(--bg-card); backdrop-filter: blur(24px);
+      border: 1px solid var(--border); border-radius: 20px;
+      padding: 28px 32px;
+    }
+    .payment-title {
+      font-size: 1.1rem; font-weight: 800; color: var(--text-primary);
+      margin-bottom: 24px; display: flex; align-items: center; gap: 10px;
+    }
+    .payment-icon { width: 24px; height: 24px; flex-shrink: 0; }
+    .payment-form label {
+      display: block; font-size: .8rem; font-weight: 600; color: var(--text-secondary);
+      margin-bottom: 6px; margin-top: 16px;
+    }
+    .payment-form label:first-of-type { margin-top: 0; }
+    .payment-input {
+      width: 100%; padding: 12px 16px; border-radius: 10px;
+      border: 1px solid var(--border); background: rgba(255,255,255,.03);
+      color: var(--text-primary); font-family: inherit; font-size: .95rem;
+      outline: none; transition: border-color .2s;
+    }
+    .payment-input:focus { border-color: var(--accent-teal); }
+    .payment-input::placeholder { color: var(--text-muted); }
+    .payment-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn-complete-purchase {
+      width: 100%; padding: 16px; border-radius: 12px; border: none;
+      background: var(--gradient-main); color: #0B0D1A;
+      font-family: inherit; font-size: 1.05rem; font-weight: 700;
+      cursor: pointer; margin-top: 24px; transition: all .25s;
+    }
+    .btn-complete-purchase:hover {
+      box-shadow: 0 0 32px rgba(0,210,160,.35); transform: translateY(-2px);
+    }
+    .payment-secure {
+      font-size: .78rem; color: var(--text-muted); margin-top: 16px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .payment-secure svg { flex-shrink: 0; }
+
+    /* ─── FLEXIBILITY BANNER ─── */
+    .flexibility-banner {
+      margin-top: 32px; text-align: center;
+      background: rgba(0,210,160,.04); border: 1px solid rgba(0,210,160,.12);
+      border-radius: 16px; padding: 24px 32px;
+    }
+    .flexibility-banner h4 {
+      font-size: 1rem; font-weight: 700; color: var(--accent-teal);
+      margin-bottom: 8px; display: flex; align-items: center;
+      justify-content: center; gap: 8px;
+    }
+    .flexibility-banner p {
+      font-size: .88rem; color: var(--text-secondary); line-height: 1.55;
+      max-width: 520px; margin: 0 auto;
+    }
+    .flex-features {
+      display: flex; gap: 20px; justify-content: center;
+      margin-top: 16px; flex-wrap: wrap;
+    }
+    .flex-feature {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .82rem; color: var(--text-secondary);
+    }
+    .flex-check {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(0,210,160,.12); color: var(--accent-teal);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .65rem; font-weight: 700; flex-shrink: 0;
+    }
+
+    /* ─── DEPARTMENT EXPLORER ─── */
+    .dept-explorer {
+      margin-top: 40px; position: relative;
+    }
+    .dept-explorer-header {
+      text-align: center; margin-bottom: 28px;
+    }
+    .dept-explorer-header h3 {
+      font-size: 1.4rem; font-weight: 800; color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .dept-explorer-header p {
+      font-size: .9rem; color: var(--text-secondary);
+    }
+    .dept-tags {
+      display: flex; justify-content: center; gap: 8px;
+      flex-wrap: wrap; margin-bottom: 28px;
+    }
+    .dept-tag {
+      font-family: inherit; font-size: .82rem; font-weight: 600;
+      padding: 9px 22px; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: transparent; color: var(--text-secondary);
+      cursor: pointer; transition: all .25s;
+    }
+    .dept-tag:hover {
+      border-color: rgba(255,255,255,.25); color: var(--text-primary);
+      background: rgba(255,255,255,.04);
+    }
+    .dept-tag.active {
+      border-color: transparent; font-weight: 700;
+      box-shadow: 0 0 20px rgba(0,210,160,.2);
+    }
+    .dept-tag.active[data-dept="hr"]    { background: linear-gradient(135deg, #7BC67E 0%, #3A9E6E 60%, #5B8DEF 100%); color: #fff; box-shadow: 0 0 20px rgba(123,198,126,.25); }
+    .dept-tag.active[data-dept="it"]    { background: linear-gradient(135deg, #FDAB3D 0%, #D48B2A 60%, #9B6BF2 100%); color: #fff; box-shadow: 0 0 20px rgba(253,171,61,.25); }
+    .dept-tag.active[data-dept="pmo"]   { background: linear-gradient(135deg, #FFD600 0%, #D4A800 60%, #5B8DEF 100%); color: #fff; box-shadow: 0 0 20px rgba(255,214,0,.25); }
+    .dept-tag.active[data-dept="sales"] { background: linear-gradient(135deg, #64B5F6 0%, #0077CC 60%, #9B6BF2 100%); color: #fff; box-shadow: 0 0 20px rgba(100,181,246,.25); }
+    .dept-tag.active[data-dept="marketing"] { background: linear-gradient(135deg, #FF9A3D 0%, #E07B20 60%, #9B6BF2 100%); color: #fff; box-shadow: 0 0 20px rgba(255,154,61,.25); }
+
+    .dept-panel {
+      display: none;
+      animation: fadeUp .4s ease;
+    }
+    .dept-panel.active { display: block; }
+
+    .dept-panel-card {
+      background: var(--bg-card); backdrop-filter: blur(24px);
+      border: 1px solid var(--border); border-radius: 20px;
+      overflow: hidden;
+    }
+    .dept-panel-top {
+      padding: 24px 28px; display: flex; align-items: center; gap: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dept-panel-avatar {
+      width: 52px; height: 68px; flex-shrink: 0;
+    }
+    .dept-panel-avatar img {
+      width: 100%; height: 100%; object-fit: contain; object-position: bottom;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,.4));
+    }
+    .dept-panel-info h4 {
+      font-size: 1.1rem; font-weight: 800; color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+    .dept-panel-info p {
+      font-size: .82rem; color: var(--text-secondary);
+    }
+
+    .dept-capabilities {
+      padding: 20px 28px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .dept-cap {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 14px; padding: 16px 18px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .dept-cap-name {
+      font-size: .82rem; font-weight: 700; color: var(--text-primary);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .dept-cap-icon {
+      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dept-cap-icon svg { width: 15px; height: 15px; }
+    .dept-cap[data-color="green"] .dept-cap-icon  { background: rgba(123,198,126,.12); color: #7BC67E; }
+    .dept-cap[data-color="orange"] .dept-cap-icon { background: rgba(253,171,61,.12); color: #FDAB3D; }
+    .dept-cap[data-color="yellow"] .dept-cap-icon { background: rgba(255,214,0,.12); color: #FFD600; }
+    .dept-cap[data-color="blue"] .dept-cap-icon   { background: rgba(100,181,246,.12); color: #64B5F6; }
+    .dept-cap[data-color="pink"] .dept-cap-icon   { background: rgba(255,138,158,.12); color: #FF8A9E; }
+    .dept-cap[data-color="purple"] .dept-cap-icon { background: rgba(155,107,242,.12); color: #9B6BF2; }
+
+    .dept-cap-desc {
+      font-size: .78rem; color: var(--text-secondary); line-height: 1.5;
+    }
+    .dept-cap-stat {
+      margin-top: 4px; font-size: .72rem; font-weight: 700;
+    }
+    .dept-cap-stat span {
+      background: var(--gradient-main);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @media (max-width: 960px) {
+      .dept-capabilities { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .dept-explorer-header h3 { font-size: 1.2rem; }
+    }
+    @media (max-width: 600px) {
+      .dept-capabilities { grid-template-columns: 1fr; }
+      .dept-tags { gap: 6px; }
+      .dept-tag { padding: 7px 14px; font-size: .74rem; }
+      .dept-panel-top { flex-direction: column; text-align: center; padding: 20px; }
+      .dept-capabilities { padding: 16px; }
+      .dept-cap { padding: 14px; }
+      .dept-explorer-header h3 { font-size: 1.1rem; }
+      .dept-explorer-header p { font-size: .82rem; }
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      padding: 32px 0; text-align: center; font-size: .8rem;
+      color: var(--text-muted); border-top: 1px solid var(--border);
+      background: var(--bg-base); margin-top: 40px;
+    }
+    .footer-logo { height: 22px; width: auto; margin: 0 auto 12px; opacity: .5; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      .page { padding: 100px 0 60px; }
+      .page-header h1 { font-size: 2.2rem; }
+      .tiers-grid { grid-template-columns: 1fr; max-width: 440px; }
+      .summary-panel { max-width: 100%; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 12px; }
+      .page { padding: 80px 0 32px; }
+      .nav-inner { height: 52px; }
+      .logo-mark-icon { width: 22px; height: 22px; }
+      .logo-mark-text { font-size: .95rem; }
+      .nav-back { font-size: .76rem; }
+      .page-header { margin-bottom: 16px; }
+      .page-header h1 { font-size: 1.5rem; margin-bottom: 8px; }
+      .page-header p { font-size: .82rem; display: none; }
+      .steps-bar { margin-bottom: 12px; }
+      .step-line { width: 20px; margin: 0 4px; }
+      .step-indicator span:not(.step-dot) { display: none; }
+      .step-dot { width: 26px; height: 26px; font-size: .7rem; }
+      .dept-filter { margin-bottom: 16px; gap: 4px; }
+      .dept-filter-btn { padding: 7px 14px; padding-left: 10px; font-size: .74rem; }
+      .tiers-grid { gap: 10px; max-width: 100%; }
+      .tier-card { border-radius: 14px; }
+      .tier-top { padding: 14px 16px 10px; }
+      .tier-name { font-size: 1.15rem; margin-bottom: 4px; }
+      .tier-price { font-size: 1.6rem; margin-bottom: 8px; }
+      .tier-price-period { font-size: .7rem; }
+      .tier-tagline { font-size: .76rem; line-height: 1.4; }
+      .tier-body { padding: 10px 16px 14px; }
+      .tier-features li { font-size: .8rem; padding: 6px 0; }
+      .tier-feature-icon { width: 18px; height: 18px; }
+      .tier-feature-icon svg { width: 11px; height: 11px; }
+      .tier-select-btn { padding: 10px; font-size: .85rem; border-width: 1.5px; border-radius: 10px; }
+      .users-panel h2 { font-size: 1.4rem; }
+      .users-panel p { font-size: .9rem; margin-bottom: 24px; }
+      .users-input { font-size: 2rem; width: 100px; }
+      .users-minus, .users-plus { width: 42px; height: 42px; font-size: 1.2rem; }
+      .btn-continue { padding: 14px 36px; font-size: .95rem; width: 100%; }
+      .btn-back { font-size: .82rem; }
+      .summary-panel h2 { font-size: 1.4rem; }
+      .summary-panel > p { font-size: .88rem; margin-bottom: 24px; }
+      .summary-top { flex-direction: column; text-align: center; padding: 20px 16px; gap: 12px; }
+      .summary-tier-icon { font-size: 2.2rem; }
+      .summary-tier-info h3 { font-size: 1.1rem; }
+      .summary-rows { padding: 16px; }
+      .summary-row { font-size: .85rem; padding: 12px 0; }
+      .summary-total-value { font-size: 1.6rem; }
+      .summary-buckets { padding: 16px; }
+      .summary-bucket-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .summary-bucket-item { padding: 10px 12px; }
+      .summary-bucket-item .sb-value { font-size: .88rem; }
+      .summary-actions { padding: 16px; flex-direction: column; }
+      .btn-checkout { padding: 14px 24px; font-size: .95rem; width: 100%; }
+      .btn-ghost-outline { padding: 12px 24px; font-size: .88rem; width: 100%; text-align: center; justify-content: center; }
+      .flexibility-banner { padding: 20px 16px; margin-top: 24px; }
+      .flexibility-banner h4 { font-size: .9rem; }
+      .flexibility-banner p { font-size: .82rem; }
+      .flex-features { flex-direction: column; align-items: center; gap: 10px; }
+      .flex-feature { font-size: .78rem; }
+      .dept-explorer { margin-top: 28px; }
+      .footer { padding: 24px 0; margin-top: 28px; }
+    }
+    @media (max-width: 380px) {
+      .page-header h1 { font-size: 1.4rem; }
+      .summary-bucket-grid { grid-template-columns: 1fr; }
+      .users-input-wrap { gap: 10px; }
+      .users-input { font-size: 1.6rem; width: 80px; }
+      .dept-tags { gap: 4px; }
+      .dept-tag { padding: 6px 10px; font-size: .68rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SVG Icon Definitions -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+  <defs>
+    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00E5A0"/>
+      <stop offset="25%" stop-color="#00D2C4"/>
+      <stop offset="60%" stop-color="#5B8DEF"/>
+      <stop offset="100%" stop-color="#9B6BF2"/>
+    </linearGradient>
+  </defs>
+  <symbol id="monday-mark" viewBox="0 0 40 40">
+    <g transform="translate(6,4) rotate(-20, 14, 16)">
+      <rect x="0" y="1" width="8" height="26" rx="4" fill="url(#logo-gradient)"/>
+      <rect x="12" y="8" width="8" height="19" rx="4" fill="url(#logo-gradient)"/>
+      <circle cx="28" cy="22" r="4.5" fill="url(#logo-gradient)"/>
+    </g>
+  </symbol>
+  <symbol id="ico-credits" viewBox="0 0 16 16">
+    <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+    <path d="M8 4.5v7M6 6.5c0-.8.9-1.5 2-1.5s2 .7 2 1.5-.9 1.5-2 1.5-2 .7-2 1.5.9 1.5 2 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  </symbol>
+  <symbol id="ico-agents" viewBox="0 0 16 16">
+    <circle cx="7" cy="5" r="2.5" stroke="currentColor" stroke-width="1.4" fill="none"/>
+    <path d="M2.5 14c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M13 2l.5 1 1 .5-1 .5-.5 1-.5-1-1-.5 1-.5z" fill="currentColor"/>
+  </symbol>
+  <symbol id="ico-workflows" viewBox="0 0 16 16">
+    <rect x="1.5" y="2" width="4" height="3" rx="1" stroke="currentColor" stroke-width="1.3" fill="none"/>
+    <rect x="10.5" y="2" width="4" height="3" rx="1" stroke="currentColor" stroke-width="1.3" fill="none"/>
+    <rect x="6" y="11" width="4" height="3" rx="1" stroke="currentColor" stroke-width="1.3" fill="none"/>
+    <path d="M3.5 5v2.5c0 1 .8 1.8 1.8 1.8H8m4.5-4.3v2.5c0 1-.8 1.8-1.8 1.8H8m0 0v1.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  </symbol>
+  <symbol id="ico-vibe" viewBox="0 0 16 16">
+    <rect x="2" y="2" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.3" fill="none"/>
+    <rect x="9" y="2" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.3" fill="none"/>
+    <rect x="2" y="9" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.3" fill="none"/>
+    <rect x="9" y="9" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.3" fill="none"/>
+  </symbol>
+  <symbol id="ico-notes" viewBox="0 0 16 16">
+    <rect x="5.5" y="1.5" width="5" height="8" rx="2.5" stroke="currentColor" stroke-width="1.3" fill="none"/>
+    <path d="M3.5 7.5c0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+    <path d="M8 12v2.5M6 14.5h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  </symbol>
+  <symbol id="ico-sidekick" viewBox="0 0 16 16">
+    <path d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11 6.5 7.5 3 6l3.5-1.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" fill="none"/>
+    <path d="M12 10l.7 1.3 1.3.7-1.3.7-.7 1.3-.7-1.3L10 12l1.3-.7z" fill="currentColor"/>
+    <path d="M3 11l.5 1 1 .5-1 .5-.5 1-.5-1-1-.5 1-.5z" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner container">
+    <div class="logo">
+      <span class="logo-mark">
+        <svg class="logo-mark-icon" viewBox="0 0 40 40"><use href="#monday-mark"/></svg>
+        <span class="logo-mark-text">monday<span class="dot-com">.com</span></span>
+      </span>
+    </div>
+    <a href="index.html" class="nav-back">&larr; Back to overview</a>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<main class="page">
+  <div class="container">
+
+    <div class="page-header">
+      <h1>Choose Your <span>AI Approach</span></h1>
+      <p id="pageSubtitle">Select how deeply AI integrates into your workflows. Your plan, your way.</p>
+    </div>
+
+    <!-- STEP BAR -->
+    <div class="steps-bar">
+      <div class="step-indicator active" data-step="1">
+        <span class="step-dot">1</span>
+        <span>AI Approach</span>
+      </div>
+      <div class="step-line" data-after="1"></div>
+      <div class="step-indicator" data-step="2">
+        <span class="step-dot">2</span>
+        <span>Checkout</span>
+      </div>
+    </div>
+
+    <!-- DEPARTMENT FILTER -->
+    <div class="dept-filter" id="deptFilter">
+      <button class="dept-filter-btn active" data-dept="all">All</button>
+      <button class="dept-filter-btn" data-dept="hr"><span class="dept-check"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3 3 7-6"/></svg></span>HR</button>
+      <button class="dept-filter-btn" data-dept="marketing"><span class="dept-check"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3 3 7-6"/></svg></span>Marketing</button>
+      <button class="dept-filter-btn" data-dept="pmo"><span class="dept-check"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3 3 7-6"/></svg></span>PMO</button>
+      <button class="dept-filter-btn" data-dept="sales"><span class="dept-check"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3 3 7-6"/></svg></span>Sales</button>
+      <button class="dept-filter-btn" data-dept="it"><span class="dept-check"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3 3 7-6"/></svg></span>IT</button>
+    </div>
+
+    <!-- ═══ STEP 1: CHOOSE TIER (clean — name, tagline, agents on hover) ═══ -->
+    <div class="flow-panel active" id="step1">
+      <div class="tiers-grid">
+
+        <!-- AI Assist -->
+        <div class="tier-card tier-assist" data-tier="assist">
+          <div class="tier-top">
+            <h3 class="tier-name">AI Assist</h3>
+            <div class="tier-price">$155 <span class="tier-price-period">/mo</span></div>
+            <p class="tier-credits">8,000 AI Credits / month</p>
+            <p class="tier-tagline">For light AI usage and experimentation, equal to half-time worker</p>
+          </div>
+          <div class="tier-body">
+            <ul class="tier-features">
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-agents"/></svg></span>
+                Up to 2,000 AI agentic actions
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-vibe"/></svg></span>
+                10 Vibe apps
+              </li>
+            </ul>
+            <button class="tier-select-btn">Get started</button>
+          </div>
+        </div>
+
+        <!-- AI Co-Work -->
+        <div class="tier-card tier-cowork tier-has-badge" data-tier="cowork">
+          <div class="tier-popular-badge">Most Popular</div>
+          <div class="tier-top">
+            <h3 class="tier-name">AI Co-Work</h3>
+            <div class="tier-price">$475 <span class="tier-price-period">/mo</span></div>
+            <p class="tier-credits">20,000 AI Credits / month</p>
+            <p class="tier-tagline">For teams automating core workflows, equal to one full time team member</p>
+          </div>
+          <div class="tier-body">
+            <ul class="tier-features">
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-agents"/></svg></span>
+                Up to 5,000 AI agentic actions
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-vibe"/></svg></span>
+                10 Vibe apps
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-notes"/></svg></span>
+                125 Notetaker hours
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-workflows"/></svg></span>
+                5 AI workflows
+              </li>
+            </ul>
+            <button class="tier-select-btn filled">Get started</button>
+          </div>
+        </div>
+
+        <!-- AI First -->
+        <div class="tier-card tier-first" data-tier="first">
+          <div class="tier-top">
+            <h3 class="tier-name">AI First</h3>
+            <div class="tier-price">Custom</div>
+            <p class="tier-credits">Starting 80,000 credits/month</p>
+            <p class="tier-tagline">For organization-wide AI standardization, equal to full operating team</p>
+          </div>
+          <div class="tier-body">
+            <ul class="tier-features">
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-agents"/></svg></span>
+                More than 20,000 AI agentic actions
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-vibe"/></svg></span>
+                More than 25 Vibe apps
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-notes"/></svg></span>
+                More than 250 Notetaker hours
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-sidekick"/></svg></span>
+                Sidekick Plus Seats: included
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-workflows"/></svg></span>
+                More than 25 AI workflows
+              </li>
+              <li>
+                <span class="tier-feature-icon"><svg><use href="#ico-credits"/></svg></span>
+                Enterprise-grade security & governance
+              </li>
+            </ul>
+            <button type="button" class="tier-select-btn contact-sales" disabled>Contact sales</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ STEP 2: CHECKOUT ═══ -->
+    <div class="flow-panel" id="step2">
+      <div class="checkout-panel">
+        <p class="checkout-subtitle">Here's a breakdown of your monthly investment. Review your plan and complete your purchase.</p>
+
+        <div class="checkout-top">
+          <div class="checkout-billing-section">
+            <label>Billing</label>
+            <div class="billing-toggle">
+              <button class="billing-btn" id="billingYearly">Yearly</button>
+              <button class="billing-btn active" id="billingMonthly">Monthly</button>
+            </div>
+          </div>
+          <div class="checkout-seats-section">
+            <label>Seats</label>
+            <div class="seats-input-wrap">
+              <button class="seats-btn" id="usersMinus">−</button>
+              <input type="number" class="seats-input" id="usersInput" value="3" min="1" max="10000">
+              <button class="seats-btn" id="usersPlus">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkout-grid">
+          <div class="checkout-left">
+            <div class="summary-card checkout-plan-card">
+              <h3 class="checkout-plan-title">Your plan: <span id="summaryTierName">AI Assist</span></h3>
+              <div class="summary-rows">
+                <div class="summary-row">
+                  <span class="summary-row-label">Platform access</span>
+                  <span class="summary-row-value">
+                    <span id="summaryUsers">3</span> users &times; $30/mo
+                    <br><span class="summary-row-sub" id="summaryPlatformTotal">= $90/mo</span>
+                  </span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-row-label">AI Approach tier</span>
+                  <span class="summary-row-value">
+                    <span id="summaryTierLabel">AI Assist</span>
+                    <br><span class="summary-row-sub" id="summaryTierCost">$155/mo</span>
+                  </span>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-total">
+                  <span class="summary-total-label">Total monthly cost</span>
+                  <span class="summary-total-value" id="summaryTotal">$245/mo</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-back checkout-back" id="btnBackTo1">&larr; Change AI Approach</button>
+          </div>
+
+          <!-- RIGHT: Payment -->
+          <div class="checkout-right">
+            <div class="payment-card">
+              <h3 class="payment-title"><svg class="payment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>Payment Details</h3>
+              <div class="payment-form">
+                <label>Cardholder name</label>
+                <input type="text" placeholder="John Doe" class="payment-input">
+                <label>Card number</label>
+                <input type="text" placeholder="1234 5678 9012 3456" class="payment-input" maxlength="19">
+                <div class="payment-row">
+                  <div>
+                    <label>Expiry date</label>
+                    <input type="text" placeholder="MM/YY" class="payment-input" maxlength="5">
+                  </div>
+                  <div>
+                    <label>CVC</label>
+                    <input type="text" placeholder="123" class="payment-input" maxlength="4">
+                  </div>
+                </div>
+                <button class="btn-complete-purchase" id="btnCheckout">Complete Purchase</button>
+                <p class="payment-secure"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Secured with 256-bit SSL encryption.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <span class="logo-mark">
+      <svg class="logo-mark-icon" viewBox="0 0 40 40"><use href="#monday-mark"/></svg>
+      <span class="logo-mark-text">monday<span class="dot-com">.com</span></span>
+    </span>
+    <p>&copy; 2026 monday.com &middot; AI Agents Pricing</p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tiers = {
+    assist: {
+      name: 'AI Assist', cost: 155, icon: 'A',
+      desc: 'AI helps with small tasks — categorization, summarization, content creation on demand.',
+      buckets: [
+        { ico: 'agents',   label: 'AI agentic actions', value: 'Up to 2,000' },
+        { ico: 'vibe',     label: 'Vibe apps',           value: '10' },
+      ]
+    },
+    cowork: {
+      name: 'AI Co-Work', cost: 475, icon: 'C',
+      desc: 'AI owns deterministic tasks — solving tickets, handling routine workflows end-to-end.',
+      buckets: [
+        { ico: 'agents',   label: 'AI agentic actions', value: 'Up to 5,000' },
+        { ico: 'vibe',     label: 'Vibe apps',           value: '10' },
+        { ico: 'notes',    label: 'Notetaker',           value: '125 hours' },
+        { ico: 'workflows',label: 'AI workflows',        value: '5' },
+      ]
+    },
+    first: {
+      name: 'AI First', cost: null, customPrice: true, icon: 'F',
+      desc: 'Dedicated AI Agent workforce that transforms entire department operations.',
+      buckets: [
+        { ico: 'agents',   label: 'AI agentic actions', value: 'More than 20,000' },
+        { ico: 'vibe',     label: 'Vibe apps',           value: 'More than 25' },
+        { ico: 'notes',    label: 'Notetaker',           value: 'More than 250 hours' },
+        { ico: 'sidekick', label: 'Sidekick Plus Seats', value: 'included' },
+        { ico: 'workflows',label: 'AI workflows',        value: 'More than 25' },
+        { ico: 'credits',  label: 'Enterprise-grade security & governance', value: 'included' },
+      ]
+    },
+  };
+
+  // Default "All" features (A1=Assist, A2=Co-Work, B1=First)
+  const defaultFeatures = {
+    assist: [
+      { ico: 'agents', name: 'Up to 2,000 AI agentic actions' },
+      { ico: 'vibe', name: '10 Vibe apps' }
+    ],
+    cowork: [
+      { ico: 'agents', name: 'Up to 5,000 AI agentic actions' },
+      { ico: 'vibe', name: '10 Vibe apps' },
+      { ico: 'notes', name: '125 Notetaker hours' },
+      { ico: 'workflows', name: '5 AI workflows' }
+    ],
+    first: [
+      { ico: 'agents', name: 'More than 20,000 AI agentic actions' },
+      { ico: 'vibe', name: 'More than 25 Vibe apps' },
+      { ico: 'notes', name: 'More than 250 Notetaker hours' },
+      { ico: 'sidekick', name: 'Sidekick Plus Seats: included' },
+      { ico: 'workflows', name: 'More than 25 AI workflows' },
+      { ico: 'credits', name: 'Enterprise-grade security & governance' }
+    ]
+  };
+
+  let selectedTier = null;
+  let userCount = 3;
+  let selectedDepts = []; // multi-select: empty = "All", else e.g. ['hr','marketing']
+
+  const tierCards = document.querySelectorAll('.tier-card');
+  const stepIndicators = document.querySelectorAll('.step-indicator');
+  const stepLines = document.querySelectorAll('.step-line');
+  const panels = { 1: document.getElementById('step1'), 2: document.getElementById('step2') };
+  const usersInput = document.getElementById('usersInput');
+  let billingMonthly = true;
+
+  function fmtMoney(n) {
+    return '$' + n.toLocaleString('en-US');
+  }
+
+  function goToStep(n) {
+    Object.values(panels).forEach(p => p.classList.remove('active'));
+    panels[n].classList.add('active');
+
+    stepIndicators.forEach(si => {
+      const s = Number(si.dataset.step);
+      si.classList.remove('active', 'done');
+      if (s === n) si.classList.add('active');
+      else if (s < n) si.classList.add('done');
+    });
+    stepLines.forEach(sl => {
+      const after = Number(sl.dataset.after);
+      sl.classList.toggle('done', after < n);
+    });
+
+    const deptFilter = document.getElementById('deptFilter');
+    if (deptFilter) {
+      deptFilter.style.display = (n === 1) ? 'flex' : 'none';
+    }
+
+    const subtitle = document.getElementById('pageSubtitle');
+    if (subtitle) {
+      subtitle.textContent = n === 1
+        ? 'Select how deeply AI integrates into your workflows. Your plan, your way.'
+        : "Here's a breakdown of your monthly investment. Review your plan and complete your purchase.";
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateTierFeatures(depts) {
+    const tierFeatureContainers = {
+      assist: document.querySelector('.tier-assist .tier-features'),
+      cowork: document.querySelector('.tier-cowork .tier-features'),
+      first: document.querySelector('.tier-first .tier-features')
+    };
+
+    if (!depts || depts.length === 0) {
+      Object.keys(tierFeatureContainers).forEach(tierKey => {
+        const features = defaultFeatures[tierKey];
+        tierFeatureContainers[tierKey].innerHTML = features.map(f => `
+          <li>
+            <span class="tier-feature-icon"><svg><use href="#ico-${f.ico}"/></svg></span>
+            ${f.name}
+          </li>
+        `).join('');
+      });
+    } else {
+      const multiDept = depts.length > 1;
+      Object.keys(tierFeatureContainers).forEach(tierKey => {
+        const parts = [];
+        depts.forEach((dept, i) => {
+          const info = deptData[dept];
+          if (!info || !info.caps[tierKey]) return;
+          const caps = info.caps[tierKey].slice(0, 4);
+          const capsLis = caps.map(c => `
+            <li>
+              <span style="color: var(--tier-accent); font-size: .85rem; flex-shrink: 0;">&#10003;</span>
+              <span><strong style="color: var(--text-primary);">${c.stat(userCount)}</strong> ${c.name}</span>
+            </li>
+          `).join('');
+          const prebuilt = info.prebuilt && info.prebuilt[tierKey];
+          const prebuiltLis = prebuilt && prebuilt.length ? `
+            <li class="tier-prebuilt-label">Included apps & workflows</li>
+            ${prebuilt.map(name => `<li><span class="tier-feature-icon"><svg><use href="#ico-vibe"/></svg></span>${name}</li>`).join('')}
+          ` : '';
+          if (multiDept) {
+            const sepClass = i > 0 ? 'dept-separator dept-separator-with-or' : 'dept-separator';
+            const orWrap = i > 0 ? '<div class="dept-sep-or-wrap"><span class="dept-sep-or">OR</span></div>' : '';
+            parts.push(`<li class="${sepClass}">${orWrap}<span class="dept-sep-label">${info.label}</span></li>` + capsLis + prebuiltLis);
+          } else {
+            parts.push(capsLis + prebuiltLis);
+          }
+        });
+        tierFeatureContainers[tierKey].innerHTML = parts.join('');
+      });
+    }
+  }
+
+  let renderSummary = function() {
+    if (!selectedTier) return;
+    const tier = tiers[selectedTier];
+    const platformCost = userCount * 30;
+    const isCustom = tier.customPrice;
+    const total = isCustom ? null : platformCost + tier.cost;
+
+    const summaryIcon = document.getElementById('summaryIcon');
+    if (summaryIcon) summaryIcon.textContent = tier.icon;
+    document.getElementById('summaryTierName').textContent = tier.name;
+    const summaryTierDesc = document.getElementById('summaryTierDesc');
+    if (summaryTierDesc) summaryTierDesc.textContent = tier.desc;
+    document.getElementById('summaryUsers').textContent = userCount;
+    document.getElementById('summaryPlatformTotal').textContent = '= ' + fmtMoney(platformCost) + '/mo';
+    document.getElementById('summaryTierLabel').textContent = tier.name;
+    document.getElementById('summaryTierCost').textContent = isCustom ? 'Custom' : fmtMoney(tier.cost) + '/mo';
+    document.getElementById('summaryTotal').textContent = isCustom ? 'Custom' : fmtMoney(total) + '/mo';
+
+    const bucketGrid = document.getElementById('summaryBucketGrid');
+    if (bucketGrid) {
+      bucketGrid.innerHTML = tier.buckets.map(b => `
+      <div class="summary-bucket-item">
+        <span class="sb-label"><span class="sb-icon"><svg><use href="#ico-${b.ico}"/></svg></span> ${b.label}</span>
+        <span class="sb-value${b.unlimited ? ' unlimited' : ''}">${b.value}</span>
+      </div>
+    `).join('');
+    }
+  };
+
+  tierCards.forEach(card => {
+    const btn = card.querySelector('.tier-select-btn');
+
+    function selectTier() {
+      selectedTier = card.dataset.tier;
+      tierCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      renderSummary();
+      setTimeout(() => goToStep(2), 250);
+    }
+
+    card.addEventListener('click', (e) => {
+      if (e.target === btn) return;
+      selectTier();
+    });
+    if (!btn.disabled) btn.addEventListener('click', selectTier);
+  });
+
+  // ─── DEPARTMENT FILTER (multi-select) ───
+  function syncDeptBtnStates() {
+    document.querySelectorAll('.dept-filter-btn').forEach(b => {
+      const d = b.dataset.dept;
+      b.classList.toggle('active', d === 'all' ? selectedDepts.length === 0 : selectedDepts.indexOf(d) >= 0);
+    });
+  }
+  document.querySelectorAll('.dept-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const dept = btn.dataset.dept;
+      if (dept === 'all') {
+        selectedDepts = [];
+      } else {
+        const idx = selectedDepts.indexOf(dept);
+        if (idx >= 0) selectedDepts.splice(idx, 1);
+        else selectedDepts.push(dept);
+      }
+      syncDeptBtnStates();
+      updateTierFeatures(selectedDepts);
+    });
+  });
+
+  function onSeatsChange() {
+    userCount = Math.max(1, parseInt(usersInput.value) || 1);
+    usersInput.value = userCount;
+    if (selectedTier) renderSummary();
+  }
+  usersInput.addEventListener('input', onSeatsChange);
+  document.getElementById('usersMinus').addEventListener('click', () => {
+    usersInput.value = Math.max(1, parseInt(usersInput.value) - 1);
+    onSeatsChange();
+  });
+  document.getElementById('usersPlus').addEventListener('click', () => {
+    usersInput.value = Math.min(10000, parseInt(usersInput.value) + 1);
+    onSeatsChange();
+  });
+
+  document.getElementById('billingYearly').addEventListener('click', () => {
+    billingMonthly = false;
+    document.getElementById('billingYearly').classList.add('active');
+    document.getElementById('billingMonthly').classList.remove('active');
+  });
+  document.getElementById('billingMonthly').addEventListener('click', () => {
+    billingMonthly = true;
+    document.getElementById('billingMonthly').classList.add('active');
+    document.getElementById('billingYearly').classList.remove('active');
+  });
+
+  // ─── DEPARTMENT DATA (moved up for access in updateTierFeatures) ───
+  const deptData = {
+    hr: {
+      label: 'Human Resources',
+      img: 'assets/team-hr-1.png',
+      caps: {
+        assist: [
+          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'AI screens and ranks incoming resumes against your role criteria.', stat: () => '~80 /mo' },
+          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Automated personalized follow-up emails to candidates after each hiring stage.', stat: () => '~800 /mo' },
+          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Create customized onboarding plans for new hires based on role and department.', stat: () => '~53 /mo' },
+          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'Streamline benefits enrollment with automated workflows and reminders.', stat: () => '~160 /mo' },
+        ],
+        cowork: [
+          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'AI screens and ranks incoming resumes at scale for multi-team hiring.', stat: () => '~800 /mo' },
+          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Automated personalized follow-up emails across your full candidate pipeline.', stat: () => '~8,000 /mo' },
+          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Scalable onboarding plan generation for growing teams and departments.', stat: () => '~533 /mo' },
+          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'End-to-end benefits enrollment automation including open enrollment periods.', stat: () => '~1,600 /mo' },
+        ],
+        first: [
+          { name: 'Screen resumes & rank', ico: 'agents', color: 'green', desc: 'Enterprise-scale AI screening and ranking across all departments and roles.', stat: () => '~4,000 /mo' },
+          { name: 'Send candidate follow-ups', ico: 'workflows', color: 'green', desc: 'Organization-wide automated candidate communication and nurturing.', stat: () => '~40,000 /mo' },
+          { name: 'Generate onboarding plans', ico: 'vibe', color: 'green', desc: 'Comprehensive onboarding automation for every new hire across the organization.', stat: () => '~2,666 /mo' },
+          { name: 'Automate benefits enrollment', ico: 'sidekick', color: 'green', desc: 'Full benefits lifecycle automation including open enrollment and life events.', stat: () => '~8,000 /mo' },
+        ],
+      }
+    },
+    marketing: {
+      label: 'Marketing',
+      img: 'assets/team-marketing-1.png',
+      prebuilt: {
+        assist: ['Campaign Performance dashboard', 'A/B Test results visualizer'],
+        cowork: ['Multi-Channel Attribution Dashboard', 'Funnel Conversion Analytics Board', 'Campaign creatives generator', 'Campaign strategy builder'],
+        first: ['Cross-channel live reporting', 'Predictive funnel', 'Funnel conversion analytics board', 'Autonomous campaign optimizer', 'Campaign creatives generator', 'Campaign launch orchestrator']
+      },
+      caps: {
+        assist: [
+          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'AI launches and manages campaigns across multiple channels.', stat: () => '~80' },
+          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'Automated A/B testing of email subject lines for optimal open rates.', stat: () => '~800' },
+          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'AI drafts blog posts and social media content from briefs.', stat: () => '~160' },
+          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Score and segment marketing qualified leads automatically.', stat: () => '~53' },
+        ],
+        cowork: [
+          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'AI launches and manages campaigns at scale across all channels.', stat: () => '~800' },
+          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'High-volume A/B testing across all email campaigns.', stat: () => '~8,000' },
+          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'Scalable content creation for blogs, social, and marketing collateral.', stat: () => '~1,600' },
+          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Advanced lead scoring and segmentation for multi-team adoption.', stat: () => '~533' },
+        ],
+        first: [
+          { name: 'Launch multi-channel campaigns', ico: 'agents', color: 'orange', desc: 'Enterprise-wide multi-channel campaign orchestration.', stat: () => '~4,000' },
+          { name: 'A/B test subject lines', ico: 'workflows', color: 'orange', desc: 'Organization-wide automated testing across all communications.', stat: () => '~40,000' },
+          { name: 'Draft blog posts & social', ico: 'vibe', color: 'orange', desc: 'Full content pipeline automation across all departments.', stat: () => '~8,000' },
+          { name: 'Score & segment MQLs', ico: 'sidekick', color: 'orange', desc: 'Enterprise lead intelligence with cross-department scoring.', stat: () => '~2,666' },
+        ],
+      }
+    },
+    it: {
+      label: 'IT',
+      img: 'assets/team-it-1.png',
+      prebuilt: {
+        assist: ['Incident overview dashboard', 'SLA compliance Tracker'],
+        cowork: ['Incident trend analytics board', 'Incident overview dashboard', 'SLA Compliance Tracker', 'Incident triage automator'],
+        first: ['Security risk monitoring command center', 'Infrastructure utilization', 'Cost optimization dashboard', 'Incident triage automator & reports', 'SLA compliance Tracker', 'SLA breach alert Engine']
+      },
+      caps: {
+        assist: [
+          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'AI classifies and routes incoming IT support tickets.', stat: () => '~160' },
+          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Automated account provisioning and access management.', stat: () => '~800' },
+          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'AI monitors systems and triggers runbooks on outage detection.', stat: () => '~80' },
+          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Automated software license usage auditing and reporting.', stat: () => '~53' },
+        ],
+        cowork: [
+          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'End-to-end ticket triage and resolution for multi-team IT.', stat: () => '~1,600' },
+          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Scalable provisioning across all departments and systems.', stat: () => '~8,000' },
+          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'Proactive outage detection with automated incident response.', stat: () => '~800' },
+          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Comprehensive license auditing across all software vendors.', stat: () => '~533' },
+        ],
+        first: [
+          { name: 'Triage support tickets', ico: 'agents', color: 'purple', desc: 'Enterprise AI service desk handling the full support lifecycle.', stat: () => '~8,000' },
+          { name: 'Provision accounts & access', ico: 'workflows', color: 'purple', desc: 'Organization-wide zero-touch provisioning and access governance.', stat: () => '~40,000' },
+          { name: 'Detect outages & trigger runbooks', ico: 'vibe', color: 'purple', desc: 'Predictive infrastructure monitoring with automated remediation.', stat: () => '~4,000' },
+          { name: 'Audit license usage', ico: 'sidekick', color: 'purple', desc: 'Continuous license optimization and vendor cost analysis.', stat: () => '~2,666' },
+        ],
+      }
+    },
+    pmo: {
+      label: 'PMO',
+      img: 'assets/team-pmo-1.png',
+      prebuilt: {
+        assist: ['Project status overview dashboard', 'Risk & dependency visual tracker'],
+        cowork: ['Project tracker', 'Risk detection reports', 'Portfolio health visualization', 'Predictive delivery risk analyzer'],
+        first: ['Portfolio health visualization', 'Risk detection reports', 'Capacity dashboard', 'SLA Risk escalation flow', 'Portfolio optimization engine', 'Predictive delivery risk analyzer']
+      },
+      caps: {
+        assist: [
+          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'AI generates sprint plans based on backlog and capacity.', stat: () => '~160' },
+          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'Automated deadline reminders to keep projects on track.', stat: () => '~800' },
+          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'AI summarizes weekly project progress across teams.', stat: () => '~160' },
+          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Generate resource allocation plans based on project needs.', stat: () => '~53' },
+        ],
+        cowork: [
+          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'Scalable sprint planning across multiple teams and projects.', stat: () => '~1,600' },
+          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'High-volume automated reminders across all project portfolios.', stat: () => '~8,000' },
+          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'Multi-team progress summaries with cross-project insights.', stat: () => '~1,600' },
+          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Advanced resource planning with capacity optimization.', stat: () => '~533' },
+        ],
+        first: [
+          { name: 'Generate sprint plans', ico: 'agents', color: 'yellow', desc: 'Enterprise autonomous sprint planning across all departments.', stat: () => '~8,000' },
+          { name: 'Send deadline reminders', ico: 'workflows', color: 'yellow', desc: 'Organization-wide automated project communication.', stat: () => '~40,000' },
+          { name: 'Summarize weekly progress', ico: 'vibe', color: 'yellow', desc: 'Full portfolio progress intelligence and executive reporting.', stat: () => '~8,000' },
+          { name: 'Create resource allocation', ico: 'sidekick', color: 'yellow', desc: 'Enterprise resource optimization with AI-driven staffing.', stat: () => '~2,666' },
+        ],
+      }
+    },
+    sales: {
+      label: 'Sales',
+      img: 'assets/agent-sales.png',
+      prebuilt: {
+        assist: ['Sales pipeline dashboard', 'Deal health scorecard'],
+        cowork: ['Revenue forecast visualization', 'Sales pipeline dashboard', 'Deal Health scorecard', 'Lead Scoring & Smart Segmentation Flow'],
+        first: ['Predictive pipeline risk detector', 'Territory performance optimization dashboard', 'Autonomous leads reach out', 'Revenue forecast visualization', 'Sales pipeline dashboard', 'Upsell signal activation flow']
+      },
+      caps: {
+        assist: [
+          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'AI qualifies and scores inbound leads against your ICP.', stat: () => '~80' },
+          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'Automated personalized follow-up emails using CRM data.', stat: () => '~800' },
+          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'AI compiles account history and talking points before calls.', stat: () => '~160' },
+          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Automatically identify and merge duplicate CRM records.', stat: () => '~53' },
+        ],
+        cowork: [
+          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'Full-funnel lead qualification and routing at scale.', stat: () => '~800' },
+          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'High-volume automated follow-ups across the full pipeline.', stat: () => '~8,000' },
+          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'Comprehensive call prep with competitive intelligence.', stat: () => '~1,600' },
+          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Advanced CRM hygiene across all sales data sources.', stat: () => '~533' },
+        ],
+        first: [
+          { name: 'Qualify & score leads', ico: 'agents', color: 'blue', desc: 'Enterprise AI sales workforce across the entire funnel.', stat: () => '~4,000' },
+          { name: 'Send follow-up emails', ico: 'workflows', color: 'blue', desc: 'Organization-wide automated sales communication.', stat: () => '~40,000' },
+          { name: 'Generate call prep briefs', ico: 'vibe', color: 'blue', desc: 'Enterprise deal intelligence with competitive battle cards.', stat: () => '~8,000' },
+          { name: 'Deduplicate CRM contacts', ico: 'sidekick', color: 'blue', desc: 'Continuous CRM optimization and data quality management.', stat: () => '~2,666' },
+        ],
+      }
+    },
+  };
+
+  document.getElementById('btnBackTo1').addEventListener('click', () => goToStep(1));
+  document.getElementById('btnCheckout').addEventListener('click', () => {
+    const tier = tiers[selectedTier];
+    const totalMsg = tier.customPrice ? 'Custom' : fmtMoney((userCount * 30) + tier.cost) + '/mo';
+    alert('Proceeding to checkout!\n\nTier: ' + tier.name + '\nUsers: ' + userCount + '\nTotal: ' + totalMsg);
+  });
+});
+</script>
+
+</body>
+</html>
