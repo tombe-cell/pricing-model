@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trial experience — screenshot gallery</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1100px; margin: 0 auto; padding: 24px; color: #1a1a1a; line-height: 1.5; background: #fafafa; }
+    h1 { font-size: 1.75rem; border-bottom: 2px solid #6161ff; padding-bottom: 8px; }
+    h2 { margin-top: 2.5rem; color: #333; }
+    h3 { font-size: 1rem; color: #555; margin-top: 1.5rem; }
+    .card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .card img { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 6px; margin-top: 8px; }
+    .missing { background: #fff8e6; border-color: #f0c000; }
+    .meta { font-size: 0.9rem; color: #666; }
+    a { color: #6161ff; }
+    table { border-collapse: collapse; width: 100%; font-size: 0.9rem; margin: 12px 0; }
+    th, td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #6161ff; color: #fff; }
+  </style>
+</head>
+<body>
+
+<h1>Trial experience — screenshot gallery</h1>
+<p class="meta">Local repo gallery · Also embedded in <a href="https://monday.monday.com/docs/18413672392">monday doc</a>. Playwright captures in <code>screenshots/captured/</code>.</p>
+<p><strong>Research:</strong> <a href="../trial-experience-competitors.md">competitors</a> · <a href="../trial-experience-baseline-monday.md">monday baseline</a></p>
+
+<h2>Segment A — PLG workspace</h2>
+
+<h3>Notion</h3>
+<div class="card">
+  <h3>AI agent · brainstorm · limits (third-party)</h3>
+  <img src="screenshots/segment-a/notion-ai-agent-ui.png" alt="Notion agent" width="400">
+  <img src="screenshots/segment-a/notion-brainstorm-ui.png" alt="Notion brainstorm" width="400">
+  <img src="screenshots/segment-a/notion-ai-upgrade-plan.webp" alt="Notion upgrade plan">
+  <img src="screenshots/segment-a/notion-ai-limit-response.jpg" alt="Notion limit response">
+  <img src="screenshots/segment-a/notion-ai-usage-limit.webp" alt="Notion usage limit">
+</div>
+<div class="card">
+  <h3>Pricing page (captured May 2026)</h3>
+  <img src="screenshots/captured/segment-a/notion-pricing.png" alt="Notion pricing">
+</div>
+
+<h3>ClickUp</h3>
+<div class="card">
+  <img src="screenshots/segment-a/clickup-ai-pricing-compare.webp" alt="ClickUp AI pricing" width="500">
+  <img src="screenshots/captured/segment-a/clickup-pricing.png" alt="ClickUp pricing page">
+</div>
+
+<h3>Atlassian / Rovo</h3>
+<div class="card">
+  <img src="screenshots/segment-a/atlassian-rovo-hero.png" alt="Rovo hero" width="600">
+  <img src="screenshots/captured/segment-a/atlassian-rovo-pricing.png" alt="Rovo pricing">
+</div>
+
+<h2>Segment B — AI-native</h2>
+
+<div class="card">
+  <h3>ChatGPT</h3>
+  <img src="screenshots/segment-b/chatgpt-rate-limit.png" alt="ChatGPT rate limit">
+  <img src="screenshots/captured/segment-b/chatgpt-pricing.png" alt="ChatGPT pricing">
+</div>
+
+<div class="card">
+  <h3>Claude</h3>
+  <img src="screenshots/captured/segment-b/claude-pricing.png" alt="Claude pricing">
+</div>
+
+<div class="card">
+  <h3>Cursor</h3>
+  <img src="screenshots/captured/segment-b/cursor-pricing.png" alt="Cursor pricing">
+</div>
+
+<div class="card">
+  <h3>Lovable</h3>
+  <img src="screenshots/segment-b/lovable-credits-ui-1.png" alt="Lovable credits" width="400">
+  <img src="screenshots/segment-b/lovable-credits-banner.png" alt="Lovable banner">
+  <img src="screenshots/captured/segment-b/lovable-pricing.png" alt="Lovable pricing">
+</div>
+
+<div class="card">
+  <h3>Gemini</h3>
+  <img src="screenshots/captured/segment-b/gemini-pricing.png" alt="Gemini subscriptions">
+</div>
+
+<h2>Still missing (in-product login)</h2>
+<table>
+  <tr><th>File</th><th>Product</th><th>Trigger</th></tr>
+  <tr><td><code>notion-ai-paywall.png</code></td><td>Notion</td><td>20th AI response</td></tr>
+  <tr><td><code>clickup-ai-trial-100pct.png</code></td><td>ClickUp</td><td>Brain trial exhausted</td></tr>
+  <tr><td><code>claude-usage-limit.png</code></td><td>Claude</td><td>Hit free usage limit</td></tr>
+  <tr><td><code>cursor-usage-limit.png</code></td><td>Cursor</td><td>IDE usage bar at cap</td></tr>
+  <tr><td><code>gemini-limit-prompt.png</code></td><td>Gemini</td><td>Daily prompt cap</td></tr>
+</table>
+
+</body>
+</html>
