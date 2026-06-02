@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hybrid Trial — Management Pitch</title>
+  <style>
+    :root {
+      --accent: #6161ff;
+      --text: #1a1a1a;
+      --muted: #555;
+      --bg: #fafafa;
+      --card: #fff;
+      --border: #e8e8ef;
+      --phase1: #94a3b8;
+      --phase2: #f59e0b;
+      --phase3: #ef4444;
+      --phase4: #6161ff;
+      --today: #cbd5e1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #111;
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 72px 80px;
+      background: var(--bg);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .slide.active { opacity: 1; pointer-events: auto; }
+    .slide-inner { max-width: 1080px; width: 100%; margin: 0 auto; }
+
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    h1 { font-size: 40px; line-height: 1.15; font-weight: 700; margin-bottom: 18px; }
+    h2 { font-size: 28px; line-height: 1.2; font-weight: 700; margin-bottom: 20px; }
+    h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+
+    .subtitle { font-size: 20px; line-height: 1.45; color: var(--muted); max-width: 860px; }
+    .meta { font-size: 14px; color: #888; margin-top: 24px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 12px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .card p, .card li { font-size: 14px; line-height: 1.5; color: var(--muted); }
+    .card ul { padding-left: 18px; margin-top: 8px; }
+    .card li + li { margin-top: 5px; }
+    .card strong { color: var(--text); }
+
+    .phase-card { border-top: 4px solid; }
+    .phase-card.p1 { border-color: var(--phase1); }
+    .phase-card.p2 { border-color: var(--phase2); }
+    .phase-card.p3 { border-color: var(--phase3); }
+    .phase-card.p4 { border-color: var(--phase4); background: #fafaff; }
+
+    .phase-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .p1 .phase-label { color: var(--phase1); }
+    .p2 .phase-label { color: var(--phase2); }
+    .p3 .phase-label { color: var(--phase3); }
+    .p4 .phase-label { color: var(--phase4); }
+
+    .cap {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 4px 0 8px;
+      line-height: 1.1;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-top: 8px;
+    }
+    .badge-soft { background: #f1f5f9; color: #64748b; }
+    .badge-warn { background: #fff8e6; color: #8a6d00; }
+    .badge-hard { background: #fee2e2; color: #b91c1c; }
+    .badge-future { background: #f0f0ff; color: #3d3db8; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    th {
+      background: var(--accent);
+      color: #fff;
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+    }
+
+    td {
+      border-top: 1px solid var(--border);
+      padding: 10px 14px;
+      vertical-align: top;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    td strong { color: var(--text); }
+
+    .highlight-box {
+      background: #f0f0ff;
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 16px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .highlight-box strong { color: var(--text); }
+
+    .timeline {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin: 20px 0 8px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .timeline > div {
+      flex: 1;
+      padding: 12px 10px;
+      text-align: center;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .tl-today { background: var(--today); color: #475569; flex: 0.6; }
+    .tl-p1 { background: var(--phase1); }
+    .tl-p2 { background: var(--phase2); }
+    .tl-p3 { background: var(--phase3); }
+    .tl-p4 { background: var(--phase4); }
+
+    .ask-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .ask-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .ask-item strong { display: block; margin-bottom: 4px; color: var(--text); }
+
+    .nav {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(26, 26, 26, 0.88);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      z-index: 100;
+    }
+
+    .nav button {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .nav button:hover { background: rgba(255,255,255,0.1); }
+
+    .progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+      z-index: 100;
+    }
+
+    .title-slide {
+      background: linear-gradient(135deg, #6161ff 0%, #4f4fe6 100%);
+      color: #fff;
+    }
+
+    .title-slide .eyebrow { color: rgba(255,255,255,0.75); }
+    .title-slide h1 { color: #fff; }
+    .title-slide .subtitle { color: rgba(255,255,255,0.88); }
+    .title-slide .meta { color: rgba(255,255,255,0.6); }
+
+    @media (max-width: 900px) {
+      .slide { padding: 28px 24px 72px; }
+      h1 { font-size: 28px; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="deck">
+
+  <!-- 1 Title -->
+  <section class="slide title-slide active">
+    <div class="slide-inner">
+      <div class="eyebrow">Pricing &amp; packaging · June 2026</div>
+      <h1>Hybrid trial</h1>
+      <p class="subtitle">14d Pro + <strong>enforced credits</strong> — aligned with seats + monthly credits at pay.</p>
+      <div class="grid-2" style="margin-top: 28px;">
+        <div class="card" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2);">
+          <h3 style="color:#fff;">Today</h3>
+          <p style="color: rgba(255,255,255,0.9);">6K credits · not enforced · <strong>day 14 only</strong></p>
+        </div>
+        <div class="card" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2);">
+          <h3 style="color:#fff;">Proposal</h3>
+          <p style="color: rgba(255,255,255,0.9);">Phased caps → AI paywall → platform lock · <strong>keep 14d</strong> (for now)</p>
+        </div>
+      </div>
+      <p class="meta">← → · F fullscreen</p>
+    </div>
+  </section>
+
+  <!-- 2 Why + data -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Why</div>
+      <h2>Paid = credits + seats · trial doesn’t teach that yet</h2>
+      <div class="grid-2">
+        <div class="card">
+          <ul>
+            <li>Credits don’t gate today</li>
+            <li>Peers enforce AI early</li>
+            <li>~84% never use AI in trial</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>May 6+ trials (Kremer)</h3>
+          <table>
+            <tr><td><strong>Burn any credits</strong></td><td>0.07%</td></tr>
+            <tr><td><strong>Median</strong> (if &gt;0)</td><td>149</td></tr>
+            <tr><td><strong>P90</strong> (if &gt;0)</td><td>1,884</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="highlight-box"><strong>Goal:</strong> trial → paid with plan + seats + credits understood.</div>
+    </div>
+  </section>
+
+  <!-- 3 Phased rollout -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Phases</div>
+      <h2>Abuse cap → AI paywall → platform lock → credits-only?</h2>
+
+      <div class="timeline">
+        <div class="tl-today">Today</div>
+        <div class="tl-p1">1 · 10K</div>
+        <div class="tl-p2">2 · ~1.5K</div>
+        <div class="tl-p3">3 · Lock</div>
+        <div class="tl-p4">4 · Credits?</div>
+      </div>
+
+      <div class="grid-4">
+        <div class="card phase-card p1">
+          <div class="phase-label">Phase 1</div>
+          <div class="cap">10K</div>
+          <p>Anti-abuse. No paywall.</p>
+          <span class="badge badge-soft">Ship first</span>
+        </div>
+        <div class="card phase-card p2">
+          <div class="phase-label">Phase 2</div>
+          <div class="cap">~1,500</div>
+          <p>AI paywall at 100%. <strong>WM open to day 14.</strong></p>
+          <span class="badge badge-warn">Core bet</span>
+        </div>
+        <div class="card phase-card p3">
+          <div class="phase-label">Phase 3</div>
+          <div class="cap">Lock</div>
+          <p>No credits = platform locked. 14d backstop.</p>
+          <span class="badge badge-hard">After Phase 2 data</span>
+        </div>
+        <div class="card phase-card p4">
+          <div class="phase-label">Phase 4</div>
+          <div class="cap">?</div>
+          <p>Credits-only trial. No fixed 14d.</p>
+          <span class="badge badge-future">Later</span>
+        </div>
+      </div>
+
+      <div class="highlight-box"><strong>Phase 2:</strong> AI stops · workspace continues · credit bar + missions.</div>
+    </div>
+  </section>
+
+  <!-- 4 Ask -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Ask</div>
+      <h2>Approve Phase 1 · decide cap + paywall</h2>
+
+      <div class="ask-list">
+        <div class="ask-item"><strong>Go</strong> Phase 1: 10K enforce + metrics</div>
+        <div class="ask-item"><strong>Cap</strong> 1,500 vs 2–3K?</div>
+        <div class="ask-item"><strong>Phase 2</strong> Bar only or + missions?</div>
+        <div class="ask-item"><strong>Phase 3</strong> With Phase 2 or later?</div>
+      </div>
+
+      <p class="meta" style="margin-top:20px;">Watch: trial→paid · credit wall before D14 · AI activation</p>
+    </div>
+  </section>
+
+</div>
+
+<nav class="nav" aria-label="Slide navigation">
+  <button id="prev" aria-label="Previous">←</button>
+  <span id="counter">1 / 4</span>
+  <button id="next" aria-label="Next">→</button>
+</nav>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const progress = document.getElementById('progress');
+  const counter = document.getElementById('counter');
+  let current = 0;
+
+  function show(index) {
+    current = Math.max(0, Math.min(index, slides.length - 1));
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    counter.textContent = `${current + 1} / ${slides.length}`;
+    progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+  }
+
+  document.getElementById('prev').addEventListener('click', () => show(current - 1));
+  document.getElementById('next').addEventListener('click', () => show(current + 1));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+  show(0);
+</script>
+
+</body>
+</html>
